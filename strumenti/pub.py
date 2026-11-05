@@ -10,8 +10,9 @@ EXP, OUT = sys.argv[1], sys.argv[2]
 LANCIO = "--lancio" in sys.argv
 BASE = "https://ecosystemica.it"
 OGGI = datetime.date.today().isoformat()
-# dati del titolare: da completare prima del lancio
-TITOLARE = {"nome": "[ragione sociale da indicare]", "piva": "[partita IVA]", "sede": "[sede legale]", "email": "[email del dominio]"}
+# dati del titolare: per ora solo il contatto; ragione sociale, sede e partita IVA si aggiungono quando ci saranno
+CONTATTO = "hello@ecosystemica.it"
+TITOLARE = {"nome": "", "piva": "", "sede": "", "email": CONTATTO}
 
 E = lambda s: html.escape(str(s or ""), quote=True)
 
@@ -59,7 +60,7 @@ def stili(fn):
     return "\n".join(re.findall(r"<style>(.*?)</style>", open(f"{C}/{fn}").read(), re.S))
 RESET = ":root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}*,*::before,*::after{box-sizing:border-box}"
 EXTRA = """
-.pubfoot{display:flex;flex-wrap:wrap;gap:6px 18px}
+.pubfoot{display:flex;flex-direction:column;gap:10px}.pubfoot .pfrow{display:flex;flex-wrap:wrap;gap:6px 18px}.pubfoot .pfcopy{margin:0;max-width:78ch;font-size:12px;line-height:1.55;color:var(--muted)}
 .pubfoot a{color:var(--muted)}
 .pg{max-width:1180px;margin:0 auto}
 .pg .detail{margin-top:8px}
@@ -112,7 +113,7 @@ open(f"{OUT}/assets/app.js", "w").write(js)
 
 ROBOTS = "" if LANCIO else '<meta name="robots" content="noindex, nofollow">'
 BANNER = "" if LANCIO else '<div class="anteprima">Anteprima del sito: non ancora pubblicato</div>'
-FOOT = f'''<footer class="pubfoot"><span>Ecosystemica · Centro studi sistemici sulle organizzazioni e il lavoro</span><span>Gli autori citati non sono affiliati al centro e non ne approvano i contenuti.</span><span><a href="/note-legali/">Note legali</a> · <a href="/privacy/">Privacy</a></span></footer>'''
+FOOT = f'''<footer class="pubfoot"><div class="pfrow"><span>© {datetime.date.today().year} Ecosystemica · Centro studi sistemici sulle organizzazioni e il lavoro</span><span>Contatti: <a href="mailto:{CONTATTO}">{CONTATTO}</a></span><span><a href="/note-legali/">Note legali</a> · <a href="/privacy/">Privacy</a></span></div><p class="pfcopy">Le opere citate restano di proprietà dei rispettivi autori ed editori, che ne conservano tutti i diritti. Le schede sono sintesi originali della redazione: delle opere riportano soltanto brevi citazioni, a fini di studio, critica e discussione (articolo 70 della legge 633/1941), sempre con il riferimento completo alla fonte. Gli autori citati non sono affiliati al centro e non ne approvano i contenuti. Se ritieni che un contenuto leda i tuoi diritti, scrivi a {CONTATTO}: lo verifichiamo e, se serve, lo togliamo.</p></footer>'''
 
 def testa(titolo, descr, path, extra=""):
     return f'''<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -205,21 +206,24 @@ for a in autori:
 
 # ---------- pagine legali ----------
 T = TITOLARE
+CHI = f'Questo sito è pubblicato da {E(T["nome"])}, con sede in {E(T["sede"])}, partita IVA {E(T["piva"])}' if T["nome"] else "Questo sito è curato da Ecosystemica, centro studi sistemici sulle organizzazioni e il lavoro"
+TIT = f'{E(T["nome"])}, {E(T["sede"])}, partita IVA {E(T["piva"])}' if T["nome"] else "Ecosystemica, centro studi sistemici sulle organizzazioni e il lavoro"
 LEG = {
 "note-legali": ("Note legali", f'''<h1>Note legali</h1>
-<p>Questo sito è pubblicato da {E(T["nome"])}, con sede in {E(T["sede"])}, partita IVA {E(T["piva"])}. Per scrivere al centro: {E(T["email"])}.</p>
+<p>{CHI}. Per scrivere al centro: <a href="mailto:{E(T["email"])}">{E(T["email"])}</a>.</p>
 <h2>I contenuti</h2><p>Le schede dell'archivio sono sintesi originali, scritte in italiano dalla redazione di Ecosystemica a partire dalle pubblicazioni citate, di cui riportano sempre il riferimento completo e, quando esiste, il collegamento alla fonte. Le opere citate restano dei loro autori ed editori. Gli autori citati non sono affiliati al centro e non ne approvano i contenuti.</p>
-<p>I testi del sito sono di proprietà del titolare. Se ne possono citare brevi passaggi indicando la fonte e il collegamento alla pagina.</p>
+<p>Se ritieni che un contenuto leda i tuoi diritti d'autore, scrivi all'indirizzo indicato sopra indicando l'opera e la pagina: verifichiamo ogni segnalazione e, se è fondata, togliamo o correggiamo il contenuto.</p>
+<p>I testi originali del sito appartengono a Ecosystemica. Se ne possono citare brevi passaggi indicando la fonte e il collegamento alla pagina.</p>
 <h2>Segnalazioni</h2><p>Se trovi un errore in una scheda, una fonte da correggere o un contenuto che ritieni lesivo dei tuoi diritti, scrivi all'indirizzo indicato sopra: la redazione verifica ogni segnalazione.</p>'''),
 "privacy": ("Informativa sulla privacy", f'''<h1>Informativa sulla privacy</h1>
 <p>Informativa resa ai sensi degli articoli 13 e 14 del Regolamento (UE) 2016/679.</p>
-<h2>Titolare del trattamento</h2><p>{E(T["nome"])}, {E(T["sede"])}, partita IVA {E(T["piva"])}. Contatto: {E(T["email"])}.</p>
+<h2>Titolare del trattamento</h2><p>{TIT}. Contatto: <a href="mailto:{E(T["email"])}">{E(T["email"])}</a>.</p>
 <h2>Che cosa raccogliamo</h2><p>Il sito si consulta liberamente, senza registrazione. Non usa cookie di profilazione né strumenti di statistica che tracciano i visitatori, e i caratteri tipografici sono ospitati sul sito stesso, senza richieste a servizi esterni.</p>
 <h2>Account e biblioteca personale</h2><p>Chi si iscrive ci affida l'indirizzo email, il nome se lo indica, una password e ciò che salva nella propria biblioteca: schede, autori, ricerche, note e raccolte. Usiamo questi dati solo per gestire l'account e offrire la biblioteca, cioè per eseguire il servizio richiesto (articolo 6, paragrafo 1, lettera b del Regolamento). La password non è mai conservata in chiaro.</p>
 <p>Account e biblioteca sono gestiti da Supabase, Inc., che opera come responsabile del trattamento con server nell'Unione europea (Francoforte). Le email di servizio, come la conferma dell'iscrizione e il recupero della password, partono attraverso lo stesso fornitore. Per mantenerti collegato il sito conserva nella memoria del tuo browser un codice di accesso, strettamente necessario al servizio.</p>
 <p>I dati restano finché l'account è attivo. Per cancellare l'account e tutto ciò che hai salvato basta scrivere all'indirizzo del titolare: la cancellazione avviene entro trenta giorni.</p>
 <p>Come ogni sito web, il servizio di hosting registra in forma tecnica alcune informazioni sulle richieste ricevute, come l'indirizzo IP, la data e l'ora e la pagina richiesta. Servono solo a far funzionare il sito e a proteggerlo da abusi, e sono conservate dal fornitore per il tempo previsto dalle sue condizioni.</p>
-<h2>Fornitore di hosting</h2><p>Il sito è ospitato da Netlify, Inc., che tratta i dati tecnici come responsabile del trattamento. Netlify ha sede negli Stati Uniti: il trasferimento dei dati avviene sulla base delle garanzie previste dal Regolamento, indicate nell'accordo sul trattamento dei dati del fornitore.</p>
+<h2>Fornitore di hosting</h2><p>Il sito è ospitato da Cloudflare, Inc., che tratta i dati tecnici come responsabile del trattamento. Cloudflare ha sede negli Stati Uniti: il trasferimento dei dati avviene sulla base delle garanzie previste dal Regolamento, indicate nell'accordo sul trattamento dei dati del fornitore.</p>
 <h2>Collegamenti esterni</h2><p>Le schede contengono collegamenti alle pubblicazioni originali su siti di editori, riviste e biblioteche. Quando li apri, quei siti trattano i tuoi dati secondo le proprie informative.</p>
 <h2>I tuoi diritti</h2><p>Puoi chiedere in ogni momento l'accesso ai tuoi dati, la rettifica, la cancellazione, la limitazione o l'opposizione al trattamento scrivendo all'indirizzo del titolare. Puoi anche proporre reclamo al Garante per la protezione dei dati personali.</p>
 
