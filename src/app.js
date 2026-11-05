@@ -649,7 +649,8 @@ function renderLeve(){
   const g = $("leveGrid"); if (!g) return; g.innerHTML = "";
   // gli studi da cui parte ogni leva: se la scheda è in archivio diventa un collegamento
   const studio = f => { const m = f.match(/^(.*) (\d{4})$/); if (!m) return esc(f);
-    const cog = m[1].split(/ e | /)[0].toLowerCase(), s = SCHEDE.find(x => String(x.anno) === m[2] && label(x).toLowerCase().includes(cog));
+    const cog = m[1].split(/ e | /)[0].toLowerCase(), suo = x => label(x).toLowerCase().includes(cog);
+    const s = SCHEDE.find(x => String(x.anno) === m[2] && suo(x)) || SCHEDE.find(x => suo(x) && String(x.fonte || "").includes(m[2]));
     return s ? `<a href="#scheda-${encodeURIComponent(s.id)}">${esc(f)}</a> <span class="lvtit">${esc(s.titolo)}</span>` : `${esc(f)}`; };
   LEVE.forEach((l, i) => {
     const n = SCHEDE.filter(s => s.leve.includes(l.k)).length;

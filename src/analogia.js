@@ -14,7 +14,7 @@ renderTema = function(t){
   $("ponteMacro").innerHTML = citaLinks(t.s || t.d, all.map(s => s.id));
   // i numeri prima del grafico, così si sa che cosa si sta guardando
   $("ponteCap").innerHTML = `<span class="pstat2"><b>${persone.length}</b> studi su persone, organizzazioni e lavoro · <b class="natc">${natura.length}</b> evidenze dalla natura</span>
-    <span class="pcap2">Al centro il tema. A sinistra gli studi su persone e organizzazioni, a destra i fenomeni naturali che mostrano lo stesso meccanismo.${tagliato ? " Il grafico mostra i dieci più collegati per parte: l'elenco completo è nell'archivio." : ""} Passa sopra un nome per vederlo sulla mappa, cliccalo per aprire la scheda.</span>`;
+    <span class="pcap2">Al centro il tema. A sinistra gli studi su persone e organizzazioni, a destra i fenomeni naturali che mostrano lo stesso meccanismo.${tagliato ? " Il grafico mostra i dieci più collegati per parte: l'elenco completo è nell'archivio." : ""} ${window.matchMedia("(max-width:760px)").matches ? "Tocca un nome per aprire la scheda." : "Passa sopra un nome per vederlo sulla mappa, cliccalo per aprire la scheda."}</span>`;
   drawRete(t, persone, natura);
   $("ponteTesto").innerHTML = `
     ${canEdit && t.q ? `<div class="tq"><span class="ctl-label">La domanda da cui partire · area di lavoro</span><p>«${esc(t.q)}»</p><span class="tqh">È la prima domanda da porre in azienda per capire se il problema è questo: chiede di raccontare che cosa accade davvero, prima di cercare soluzioni.</span></div>` : ""}

@@ -649,7 +649,8 @@ function renderLeve(){
   const g = $("leveGrid"); if (!g) return; g.innerHTML = "";
   // gli studi da cui parte ogni leva: se la scheda è in archivio diventa un collegamento
   const studio = f => { const m = f.match(/^(.*) (\d{4})$/); if (!m) return esc(f);
-    const cog = m[1].split(/ e | /)[0].toLowerCase(), s = SCHEDE.find(x => String(x.anno) === m[2] && label(x).toLowerCase().includes(cog));
+    const cog = m[1].split(/ e | /)[0].toLowerCase(), suo = x => label(x).toLowerCase().includes(cog);
+    const s = SCHEDE.find(x => String(x.anno) === m[2] && suo(x)) || SCHEDE.find(x => suo(x) && String(x.fonte || "").includes(m[2]));
     return s ? `<a href="#scheda-${encodeURIComponent(s.id)}">${esc(f)}</a> <span class="lvtit">${esc(s.titolo)}</span>` : `${esc(f)}`; };
   LEVE.forEach((l, i) => {
     const n = SCHEDE.filter(s => s.leve.includes(l.k)).length;
@@ -1095,7 +1096,7 @@ renderTema = function(t){
   $("ponteMacro").innerHTML = citaLinks(t.s || t.d, all.map(s => s.id));
   // i numeri prima del grafico, così si sa che cosa si sta guardando
   $("ponteCap").innerHTML = `<span class="pstat2"><b>${persone.length}</b> studi su persone, organizzazioni e lavoro · <b class="natc">${natura.length}</b> evidenze dalla natura</span>
-    <span class="pcap2">Al centro il tema. A sinistra gli studi su persone e organizzazioni, a destra i fenomeni naturali che mostrano lo stesso meccanismo.${tagliato ? " Il grafico mostra i dieci più collegati per parte: l'elenco completo è nell'archivio." : ""} Passa sopra un nome per vederlo sulla mappa, cliccalo per aprire la scheda.</span>`;
+    <span class="pcap2">Al centro il tema. A sinistra gli studi su persone e organizzazioni, a destra i fenomeni naturali che mostrano lo stesso meccanismo.${tagliato ? " Il grafico mostra i dieci più collegati per parte: l'elenco completo è nell'archivio." : ""} ${window.matchMedia("(max-width:760px)").matches ? "Tocca un nome per aprire la scheda." : "Passa sopra un nome per vederlo sulla mappa, cliccalo per aprire la scheda."}</span>`;
   drawRete(t, persone, natura);
   $("ponteTesto").innerHTML = `
     ${canEdit && t.q ? `<div class="tq"><span class="ctl-label">La domanda da cui partire · area di lavoro</span><p>«${esc(t.q)}»</p><span class="tqh">È la prima domanda da porre in azienda per capire se il problema è questo: chiede di raccontare che cosa accade davvero, prima di cercare soluzioni.</span></div>` : ""}
@@ -1223,6 +1224,27 @@ function zeroRisultati(F){
 $("filtBtn").onclick = () => { const p = $("filtPanel"); p.hidden = !p.hidden; $("filtBtn").setAttribute("aria-expanded", String(!p.hidden)); };
 const _updateA = update;
 update = function(){ _updateA(); if (!$("pArchivio").hidden) renderAttivi(state.view === "elenco" ? SCHEDE.filter(matches) : [1]); };
+
+
+// ---------- telefono: i temi come elenco da toccare, la mappa sotto, il tema a pagina piena ----------
+const MOBILE = window.matchMedia("(max-width:760px)");
+function renderMobileTemi(){
+  const box = $("mTemi"); if (!box) return;
+  box.innerHTML = `<div class="mthead"><p class="eyebrow">Da dove partire</p><h2>Scegli il tema che ti riguarda</h2><p>I temi sono divisi per livello, dalla persona all'ambiente. Toccane uno per leggere che cosa dice la ricerca e quali fenomeni naturali mostrano lo stesso meccanismo.</p></div>` +
+    LIVELLI.map((l, i) => {
+      const tt = TEMI.filter(t => t.liv === i); if (!tt.length) return "";
+      return `<section class="mliv"><h3><span class="mn">${i + 1}</span>${esc(l.n)}</h3><div class="mrows">${tt.map(t => {
+        const n = SCHEDE.length ? schedeDelTema(t.k).length : 0;
+        return `<a class="mrow" href="#tema-${encodeURIComponent(t.k)}"><span class="mrt">${esc(t.n)}</span>${n ? `<span class="mrn">${n} schede</span>` : ""}<span class="mrd">${esc(t.d || "")}</span></a>`;
+      }).join("")}</div></section>`;
+    }).join("") +
+    `<p class="mmap">Più sotto c'è la mappa di tutte le ricerche: tocca un punto per aprirne la scheda. Sullo schermo del computer si legge per intero, con i nomi degli autori.</p>`;
+}
+const _rebuildM = rebuild;
+rebuild = function(){ const r = _rebuildM.apply(this, arguments); renderMobileTemi(); return r; };
+const _openTemaM = openTema;
+openTema = function(k, isPonte){ const r = _openTemaM.apply(this, arguments); if (MOBILE.matches && k) window.scrollTo(0, 0); return r; };
+renderMobileTemi();
 
 
 // ---------- la mia biblioteca (ogni iscritto, dati privati) ----------

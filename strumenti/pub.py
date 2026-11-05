@@ -108,11 +108,11 @@ def senza_metodo(t):
         parte = re.sub(r'\b(q|uno|sis):"(?:[^"\\]|\\.)*"', r'\1:""', t[a:b])
         t = t[:a] + parte + t[b:]
     return t
-js = "\n".join((senza_metodo(open(f"{C}/{f}").read()) if f == "app.js" else open(f"{C}/{f}").read()) for f in ["app.js", "eco5.js", "ponti.js", "analogia.js", "tag.js", "archivio.js", "biblio.js", "auth.js", "boot-pub.js"])
+js = "\n".join((senza_metodo(open(f"{C}/{f}").read()) if f == "app.js" else open(f"{C}/{f}").read()) for f in ["app.js", "eco5.js", "ponti.js", "analogia.js", "tag.js", "archivio.js", "mobile.js", "biblio.js", "auth.js", "boot-pub.js"])
 open(f"{OUT}/assets/app.js", "w").write(js)
 
 ROBOTS = "" if LANCIO else '<meta name="robots" content="noindex, nofollow">'
-BANNER = "" if LANCIO else '<div class="anteprima">Anteprima del sito: non ancora pubblicato</div>'
+BANNER = ""  # la fascia «anteprima» è stata tolta su richiesta; il noindex resta finché non si lancia
 FOOT = f'''<footer class="pubfoot"><div class="pfrow"><span>© {datetime.date.today().year} Ecosystemica · Centro Studi sistemici sulle organizzazioni e il lavoro</span><span>Contatti: <a href="mailto:{CONTATTO}">{CONTATTO}</a></span><span><a href="/note-legali/">Note legali</a> · <a href="/privacy/">Privacy</a></span></div><p class="pfcopy">Le opere citate restano di proprietà dei rispettivi autori ed editori, che ne conservano tutti i diritti. Le schede sono sintesi originali della redazione: delle opere riportano soltanto brevi citazioni, a fini di studio, critica e discussione (articolo 70 della legge 633/1941), sempre con il riferimento completo alla fonte. Gli autori citati non sono affiliati al Centro Studi e non ne approvano i contenuti. Se ritieni che un contenuto leda i tuoi diritti, scrivi a {CONTATTO}: lo verifichiamo e, se serve, lo togliamo.</p></footer>'''
 
 def testa(titolo, descr, path, extra=""):
