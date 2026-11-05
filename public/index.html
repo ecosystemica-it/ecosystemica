@@ -1,0 +1,203 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ecosystemica · Centro studi sistemici sulle organizzazioni e il lavoro</title><meta name="description" content="Centro studi sistemici sulle organizzazioni e il lavoro: un archivio ragionato di ricerche su persone, gruppi e organizzazioni, con le evidenze documentate dai sistemi naturali."><link rel="canonical" href="https://ecosystemica.it/"><meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Ecosystemica · Centro studi sistemici sulle organizzazioni e il lavoro"><meta property="og:description" content="Centro studi sistemici sulle organizzazioni e il lavoro: un archivio ragionato di ricerche su persone, gruppi e organizzazioni, con le evidenze documentate dai sistemi naturali."><meta property="og:url" content="https://ecosystemica.it/"><meta property="og:type" content="website"><meta property="og:locale" content="it_IT">
+<link rel="icon" href="/assets/logo.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/site.css"></head><body><div class="anteprima">Anteprima del sito: non ancora pubblicato</div><style>
+.top{height:56px;padding-block:0;align-items:center;flex-wrap:nowrap;gap:16px;border-bottom:1px solid var(--line)}
+.top .brand{font-size:15px;font-weight:800;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.top .brand span{display:inline;font-family:var(--f-ui);font-size:12px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted);margin-left:8px}
+@media (max-width:760px){.top .brand span{display:none}}
+.top nav{flex-wrap:nowrap;gap:18px;overflow-x:auto}
+.top nav a{white-space:nowrap;font-weight:600;font-size:14px}
+.top nav a[aria-current="page"]{color:var(--accent);text-decoration:underline;text-underline-offset:6px}
+body.home{overflow:hidden}
+body.home .wrap{max-width:none}
+body.home footer{display:none}
+#pHome{position:relative;height:calc(100svh - 56px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));margin-inline:calc(-1 * max(16px, env(safe-area-inset-left, 0px))) calc(-1 * max(16px, env(safe-area-inset-right, 0px)))}
+#ecoWrap{position:absolute;inset:0;border:none;border-radius:0;background:var(--surface)}
+#eco{width:100%;height:100%}
+.ov{position:absolute;z-index:2}
+.thesis{left:20px;top:18px;width:min(470px, calc(100% - 40px));background:color-mix(in srgb, var(--bg) 92%, transparent);border:1px solid var(--line);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.thesis .eyebrow{font-family:var(--f-ui);font-weight:700;letter-spacing:.08em}
+.thesis h1{font-size:clamp(20px,2.3vw,28px);line-height:1.12}
+.thesis p{font-size:15px;line-height:1.5}
+.thesis .row2{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-family:var(--f-ui);font-size:14px;font-weight:600}
+.thesis.min p,.thesis.min .row2{display:none}
+.thesis.min h1{font-size:16px}
+.mini{font:inherit;font-family:var(--f-ui);font-size:13px;background:none;border:none;color:var(--muted);cursor:pointer;align-self:flex-end;margin:-6px -4px -4px 0;padding:2px 4px}
+.tools{right:20px;top:18px;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.tools .search{width:230px;background:var(--bg)}
+.tools .chips .chip{background:var(--bg)}
+.stats{right:20px;bottom:16px;font-family:var(--f-ui);font-size:12.5px;color:var(--muted);text-align:right;background:color-mix(in srgb, var(--surface) 85%, transparent);padding:4px 8px;border-radius:4px}
+.stats b{color:var(--ink);font-weight:800}
+.legend.ov{left:20px;bottom:14px;margin:0;font-size:12.5px;background:color-mix(in srgb, var(--surface) 85%, transparent);padding:4px 8px;border-radius:4px;max-width:calc(100% - 300px)}
+.ecoinfo{left:auto;right:20px;top:150px;width:min(340px, calc(100% - 40px));max-height:calc(100% - 210px);z-index:3}
+.modello{max-width:860px}
+.modello h1{font-size:clamp(30px,4vw,46px);margin-top:8px}
+.modello .lead{font-size:18px;margin-top:14px;max-width:62ch}
+.levels2{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-top:30px;border-top:2px solid var(--ink)}
+.lv{padding:14px 14px 14px 0;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.lv:last-child{border-right:none}
+.lv h3{font-size:19px}
+.lv p{font-size:14.5px;color:var(--muted)}
+.lv .chips{gap:4px}
+.lv .chip{font-size:12px;padding:3px 9px}
+.lv .n{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.leve{margin-top:10px}
+@media (max-width:900px){.levels2{grid-template-columns:minmax(0,1fr)}.lv{border-right:none;border-bottom:1px solid var(--line)}}
+@media (max-width:760px){
+  .tools{top:auto;bottom:52px;right:12px;left:12px;align-items:stretch}
+  .tools .search{width:100%}
+  .thesis{left:12px;top:12px;width:calc(100% - 24px);padding:12px 14px}
+  .thesis p{font-size:14px}
+  .legend.ov{display:none}
+  .stats{right:12px;bottom:12px}
+  .ecoinfo{position:absolute;left:8px;right:8px;top:auto;bottom:8px;width:auto;max-height:58%;border:1px solid var(--line);border-radius:8px}
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#" aria-label="Ecosystemica, Centro studi sistemici sulle organizzazioni e il lavoro">
+      <span class="logo" aria-hidden="true"><!-- spazio del logo: sostituire questo segno con il logo definitivo -->
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="20" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".7"/><circle cx="20" cy="20" r="6" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".45"/><circle cx="20" cy="20" r="2.4" fill="currentColor"/><circle cx="33.5" cy="12" r="2.4" fill="currentColor"/></svg></span>
+      <span class="bname">Ecosystemica</span><span class="bsub">Centro studi sistemici sulle organizzazioni e il lavoro</span></a>
+    <nav aria-label="Sezioni">
+      <a href="#" data-nav="home">La mappa</a><a href="#modello" data-nav="modello">Il modello</a><a href="#archivio" data-nav="archivio">L'archivio</a><a href="#autori" data-nav="autori">Gli autori</a><a href="#biblioteca" data-nav="biblioteca" class="iscr">La mia biblioteca</a>
+    </nav>
+  </header>
+
+  <main id="pHome">
+    <div class="ecowrap" id="ecoWrap">
+      <svg id="eco" role="img" aria-label="Mappa delle relazioni fra le ricerche dell'archivio, per macro-area"></svg>
+    </div>
+    <div class="ov thesis" id="thesis">
+      <button class="ttog" id="thesisToggle" aria-expanded="true" aria-controls="thesis" title="Riduci al solo titolo">Riduci ▴</button>
+      <span class="eyebrow">Il centro studi</span>
+      <h1>Studiamo l'impresa, i suoi flussi di lavoro e i suoi processi organizzativi con il rigore scientifico e la profondità che si dedicano allo studio di un organismo vivente.</h1>
+      <p>Persone, relazioni, processi, contenuti del lavoro e ambiente si influenzano a vicenda, e un problema si capisce solo guardandoli insieme. Dai sistemi naturali prendiamo modelli documentati per leggere questi meccanismi e per ripensarli, e di ogni cambiamento misuriamo gli effetti su chi lavora.</p>
+      <p>Il nostro obiettivo è progettare strutture e relazioni che migliorino insieme l'efficacia di procedure, organigrammi e flussi di lavoro e il benessere delle persone. Il corpo e la mente umani si sono formati, nel corso dell'evoluzione, dentro ambienti naturali, e rendono di più quando il lavoro ne rispetta i ritmi, i limiti e i bisogni. Per questo indaghiamo come rendere il lavoro e i processi produttivi più naturali, cioè più vicini a come siamo fatti.</p>
+      <p class="tlegend">Sulla mappa ogni anello è un livello, ogni punto una ricerca, ogni linea un legame fra i testi; i punti cerchiati di verde sono le evidenze dalla natura.</p>
+      <div class="row2"><a href="#modello">Il modello in breve →</a><a href="#archivio">L'archivio →</a></div>
+    </div>
+    <div class="ov tools">
+      <select class="sort pathsel ctxsel" id="pathSel" aria-label="Seleziona contesto"><option value="">Seleziona contesto ▾</option></select>
+      <div class="sbox"><input class="search" id="ecoQ" type="search" placeholder="Cerca: tema, autore, parola…" autocomplete="off" aria-label="Evidenzia nella mappa" aria-controls="ecoSug"><div class="sug" id="ecoSug" hidden></div></div>
+      <div class="chips" role="group" aria-label="Che cosa mostra la mappa">
+        <span class="ctl-label">Linee</span>
+        <button class="chip" id="eT" aria-pressed="true" title="Collega le ricerche che trattano gli stessi micro-temi">stessi temi</button>
+        <button class="chip" id="eD" aria-pressed="true" title="Collega le ricerche che si citano o si mettono alla prova a vicenda">citazioni dirette</button>
+      </div>
+      <div class="chips" role="group" aria-label="Filtri della mappa">
+        <button class="chip nat" id="eN" aria-pressed="false" title="Lascia accese solo le evidenze tratte dalla natura (bordo verde)">Solo evidenze dalla natura</button>
+        <button class="chip" id="eFit" title="Riporta la mappa alla vista iniziale">Ricentra</button>
+      </div>
+    </div>
+    <div class="ecoinfo" id="ecoInfo" hidden></div>
+    <aside class="ov ponte" id="ponte" hidden aria-label="Tema">
+      <div class="phead"><select class="sort ctxsel" id="ctxSel" aria-label="Cambia contesto"></select><button class="linkbtn" id="ponteClose">Chiudi ✕</button></div>
+      <span class="eyebrow" id="ponteEye">Tema</span>
+      <h2 id="ponteTema"></h2>
+      <p class="pmac" id="ponteMacro"></p>
+      <div class="pbody" id="ponteBody"><p class="pcap" id="ponteCap"></p><svg id="ponteNet" role="img" aria-label="Rete fra gli studi su persone, organizzazioni e lavoro e le analogie in natura"></svg><div class="ptesto" id="ponteTesto"></div></div>
+    </aside>
+    <div class="ov legend">
+      <span><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="var(--muted)"/></svg>ricerca o libro</span>
+      <span><svg width="14" height="14"><circle cx="7" cy="7" r="5" fill="var(--muted)" stroke="var(--nat)" stroke-width="2.5"/></svg>evidenza dalla natura</span>
+      <span><svg width="14" height="14"><circle cx="7" cy="7" r="6" fill="var(--muted)"/><path d="M7 3 L10.5 10 L3.5 10 Z" fill="var(--surface)"/></svg>caso studio</span>
+      <span><svg width="26" height="8"><line x1="1" y1="4" x2="25" y2="4" stroke="var(--ink)" stroke-width="1.6"/></svg>citazione diretta</span>
+      <span><svg width="26" height="8"><line x1="1" y1="4" x2="25" y2="4" stroke="var(--m-tra)" stroke-width="2.5" opacity=".6"/></svg>stessi temi</span>
+    </div>
+    <div class="ov stats" id="ecoStats"><b id="n-schede">·</b> schede · <b id="n-autori">·</b> autori · <b id="n-temi">·</b> micro-temi · cresce ogni mattina</div>
+    <span id="ecoCount" hidden></span>
+  </main>
+
+  <main id="pModello" class="page" hidden>
+    <a class="back" href="#">← La mappa</a>
+    <div class="modello">
+      <p class="eyebrow">Il modello</p>
+      <h1>Quattro livelli, un solo sistema</h1>
+      <p class="lead">Un'impresa è un sistema sociotecnico: da una parte le persone e le loro relazioni, dall'altra i processi, gli strumenti e i contenuti del lavoro, legati in modo che non si può cambiare l'una senza toccare l'altra (Trist e Bamforth). È anche un sistema aperto, che vive degli scambi con l'ambiente da cui prende persone, informazioni e risorse (Bertalanffy; Katz e Kahn). Il centro lo legge su quattro livelli, la persona al lavoro, il gruppo, l'organizzazione e l'ambiente, e porta dentro ciascuno le evidenze dei sistemi viventi in due modi: come modello documentato dei meccanismi che regolano il sistema e come fattore misurato che agisce su chi ci lavora.</p>
+    </div>
+    <div class="levels2" id="levels2"></div>
+    <div class="sec-head" style="margin-top:44px"><div><p class="eyebrow">Dove si interviene</p><h2>Le sei leve</h2></div><div class="lvintro"><p><b>Che cos'è una leva.</b> Il cliente porta un contesto, cioè il problema con le sue parole: perdiamo i talenti, i reparti litigano, le decisioni sono lente. La legge spiega perché quel problema si produce nel sistema. La leva è il punto dove si mette mano per spostarlo, con strumenti e misure precise. Lo stesso contesto può chiedere leve diverse, e la diagnosi serve a scegliere quella che trascina le altre.</p><p><b>Da dove arrivano.</b> L'idea che in un sistema esistano punti dove una piccola spinta produce grandi effetti è di Donella Meadows. Le leve sono sei perché il metodo descrive l'organizzazione con sei leggi e dà a ciascuna la sua leva. Quattro leggi sviluppano i principi ecologici che James G. Kelly propose nel 1966 per la psicologia di comunità: interdipendenza, ciclicità delle risorse, adattamento e successione, cioè la storia del sistema, che in un'organizzazione si chiama cultura. Le altre due, la guida distribuita e la rigenerazione, sono aggiunte del metodo e poggiano sulla ricerca sulla guida condivisa e sul recupero. Lo schema è un'ipotesi di lavoro: va ancora validato con un panel di esperti e con un questionario.</p></div>
+    <div class="leve" id="leveGrid"></div>
+    <p class="verify" style="margin-top:36px">Ogni scheda cita la fonte originale e riassume con parole nostre. Le schede con asterisco sono da verificare sull'originale.</p>
+  </main>
+
+  <main id="pArchivio" class="page" hidden>
+    <a class="back" href="#">← La mappa</a>
+    <div class="archead"><p class="eyebrow">L'archivio</p><h2>Le ricerche del centro</h2>
+      <p>Ogni scheda è uno studio, un libro o un caso aziendale: un riassunto in italiano, che cosa significa per un'organizzazione e il link alla fonte. Cerca una parola, scegli un contesto, oppure apri i filtri.</p></div>
+    <div class="archbar">
+      <input class="search big" id="q" type="search" placeholder="Cerca un autore, un titolo, un tema…" autocomplete="off" aria-label="Cerca nell'archivio">
+      <select class="sort ctxsel" id="ctxArch" aria-label="Contesto"><option value="">Tutti i contesti</option></select>
+      <button class="btn ghost" id="filtBtn" type="button" aria-expanded="false" aria-controls="filtPanel">Filtri<span class="fnum" id="filtNum"></span></button>
+    </div>
+    <div class="filtpanel" id="filtPanel" hidden>
+      <p class="filt-h">Dove si trova il problema</p>
+      <div class="levgrid" id="areaChips" role="group" aria-label="Filtra per livello e macro-area"></div>
+      <p class="filt-h">Leva d'intervento <span class="hint">I sei punti su cui il metodo agisce in azienda. Passa sopra una leva per leggere la domanda da cui parte.</span></p>
+      <div class="controls"><div class="chips" id="levaChips" role="group" aria-label="Filtra per leva d'intervento"></div></div>
+      <div class="toolbar">
+        <label class="ctl-label" for="discSel">Disciplina</label>
+        <select class="sort" id="discSel"></select>
+        <label class="ctl-label" for="tipoSel">Tipo</label>
+        <select class="sort" id="tipoSel"><option value="">tutti</option><option value="ricerca">libri e ricerche</option><option value="caso">casi studio</option></select>
+        <label class="ctl-label" for="sortSel">Ordine</label>
+        <select class="sort" id="sortSel"><option value="recenti">aggiunte di recente</option><option value="anno">per anno</option><option value="titolo">per titolo</option></select>
+      </div>
+      <p class="filt-h">Tag <span class="hint">Il concetto trattato, il tipo di prova, il contesto studiato e le organizzazioni citate.</span></p>
+      <div class="tagrow">
+        <label><span class="ctl-label">Concetto</span><select class="sort" id="tg-concetti"></select></label>
+        <label><span class="ctl-label">Tipo di prova</span><select class="sort" id="tg-prova"></select></label>
+        <label><span class="ctl-label">Contesto</span><select class="sort" id="tg-contesto"></select></label>
+        <label><span class="ctl-label">Organizzazione</span><select class="sort" id="tg-organizzazioni"></select></label>
+      </div>
+    </div>
+    <div class="attivi" id="attivi" hidden></div>
+    <div class="tabs" role="tablist" aria-label="Vista dell'archivio">
+      <button class="tab" role="tab" id="t-elenco" aria-selected="true">Elenco</button>
+      <button class="tab" role="tab" id="t-temi" aria-selected="false">Micro-temi</button>
+      <span class="spacer"></span>
+      <a class="btn" id="newBtn" href="#nuova" hidden>Nuova scheda</a>
+    </div>
+    <div class="pathbar" id="pathBar" hidden></div>
+    <div class="pathbar" id="tagBar" hidden></div>
+    <div class="sel-topics" id="selTopics" hidden></div>
+    <div class="near" id="near" hidden></div>
+    <div class="strow"><p class="status" id="status" role="status">Apro l'archivio…</p><button class="chip iscr" id="bibSaveQ" type="button">Salva questa ricerca</button></div>
+    <div id="vElenco"><div class="results" id="results"></div><button class="btn ghost more" id="moreBtn" hidden>Mostra altre</button></div>
+    <div id="vTemi" hidden><div class="cloud" id="cloud"></div></div>
+  </main>
+
+  <main id="pBrief" class="page" hidden></main>
+
+  <main id="pInterventi" class="page" hidden></main>
+  <main id="pAzienda" class="page" hidden></main>
+
+  <main id="pApprof" class="page" hidden></main>
+
+  <main id="pAutori" class="page" hidden>
+    <a class="back" href="#">← La mappa</a>
+    <div class="sec-head" style="margin-top:8px">
+      <div><p class="eyebrow">Gli autori</p><h2>Chi ha costruito questo sapere</h2></div>
+      <p>Ogni autore ha la sua pagina: la sintesi delle opere e della teoria, le pubblicazioni nell'archivio, le parole chiave e il motivo per cui è legato a ciascun tema.</p>
+    </div>
+    <div class="toolbar"><label class="ctl-label" for="qa">Cerca</label><input class="search" id="qa" type="search" placeholder="nome dell'autore" autocomplete="off"><span class="ecocount" id="autCount"></span></div>
+    <div class="alpha" id="alpha"></div>
+  </main>
+
+  <main id="pScheda" class="page" hidden></main>
+  <main id="pAutore" class="page" hidden></main>
+
+  <main id="pRedazione" class="page" hidden></main>
+
+  <main id="pBiblio" class="page" hidden>
+    <a class="back" href="#">← La mappa</a>
+    <div class="sec-head" style="margin-top:8px"><div><p class="eyebrow">Area personale</p><h2>La mia biblioteca</h2></div><p>Le ricerche, gli autori e le schede che hai salvato, con le tue note e le tue raccolte. È visibile solo a te.</p></div>
+    <div id="bibBody"></div>
+  </main>
+
+  <footer class="pubfoot"><span>Ecosystemica · Centro studi sistemici sulle organizzazioni e il lavoro</span><span>Gli autori citati non sono affiliati al centro e non ne approvano i contenuti.</span><span><a href="/note-legali/">Note legali</a> · <a href="/privacy/">Privacy</a></span></footer>
+</div>
+<script src="/assets/d3.min.js"></script><script src="/assets/dati.js"></script><script src="/assets/app.js"></script></body></html>

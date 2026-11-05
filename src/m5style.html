@@ -1,0 +1,134 @@
+<style>
+/* ---------- Laboratorio: fondo scuro, caratteri tecnici, verde lime per le azioni. La mappa resta com'era, su una lastra chiara. ---------- */
+:root:not(#z){
+  --bg:#0C1411; --surface:#131D19; --surface2:#18241F; --ink:#E6EDE8; --muted:#93A39A; --line:#24322B; --accent:#C6F36B; --link:#9BE0C8; --nat:#7FD98A;
+  --c-sis:#82B3D8; --c-soc:#E58C74; --c-lav:#D3B353; --c-lea:#B79AD8; --c-cam:#6EC4B9; --c-evo:#E386AF; --c-nat:#93CB73;
+  --m-ind:#FF6A4D; --m-com:#2AAEFF; --m-lea:#9B6BFF; --m-cul:#FF4F9C; --m-cam:#FFA733; --m-app:#1FD3C3; --m-ben:#FFD23F; --m-tra:#6E84FF;
+  --ring:#1A2621; --ring2:#131D19;
+  --f-display:"Space Grotesk", "Helvetica Neue", Arial, sans-serif; --f-ui:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --f-body:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; --f-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font-size:15px;line-height:1.6}
+::selection{background:var(--accent);color:#0C1411}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:700;letter-spacing:-.025em}
+a{color:var(--link)}
+a:hover{color:var(--accent)}
+:focus-visible{outline-color:var(--accent)}
+.eyebrow,.ctl-label,.mono,.sect h2,.side .box h3,.bsec h3,.spcol h4{font-family:var(--f-mono)!important;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.eyebrow{color:var(--accent);font-size:11.5px}
+.ctl-label{color:var(--muted);font-size:11px}
+
+/* intestazione: spazio per il logo e sottotitolo completo */
+header.top{height:auto!important;min-height:68px;padding-block:12px!important;align-items:center!important;flex-wrap:wrap;gap:10px 20px;border-bottom:1px solid var(--line)}
+.top .brand > span{margin:0!important}
+.top .brand .bname{display:block!important;text-transform:none!important;color:var(--ink)!important;letter-spacing:-.02em!important;font-family:var(--f-display)!important}
+.top .brand{flex:0 1 auto}
+.top nav{margin-left:auto;max-width:100%}
+.top .brand{display:grid!important;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;column-gap:12px;align-items:center;color:var(--ink)!important;text-decoration:none;min-width:0;overflow:visible!important;white-space:normal!important}
+.top .brand .logo{grid-row:1 / span 2;width:40px;height:40px;color:var(--accent);display:block}
+.top .brand .logo svg,.top .brand .logo img{width:100%;height:100%;display:block}
+.top .brand .bname{font:700 20px/1.05 var(--f-display);letter-spacing:-.02em}
+.top .brand .bsub{display:block!important;margin:2px 0 0!important;font:400 11.5px/1.3 var(--f-mono)!important;letter-spacing:.02em!important;text-transform:none!important;color:var(--muted)!important}
+.top nav{gap:4px!important;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.top nav::-webkit-scrollbar{display:none}
+.top nav a{font:500 13.5px var(--f-ui)!important;color:var(--muted);text-decoration:none!important;padding:7px 11px;border-radius:8px;white-space:nowrap}
+.top nav a:hover{color:var(--ink);background:var(--surface)}
+.top nav a[aria-current="page"]{color:#0C1411!important;background:var(--accent);text-decoration:none!important}
+@media (max-width:900px){.top nav{width:100%;margin-left:0}}
+@media (max-width:520px){.top .brand .bname{font-size:18px}.top .brand .bsub{font-size:10.5px}.top .brand .logo{width:34px;height:34px}}
+
+/* pulsanti, chip, campi */
+.btn{font:600 13.5px var(--f-ui)!important;background:var(--accent);color:#0C1411;border:1px solid var(--accent);border-radius:10px;padding:9px 16px}
+.btn:hover:not(:disabled){background:#D6FA8C;border-color:#D6FA8C}
+.btn.ghost{background:var(--surface2);color:var(--ink);border-color:#2C3A33}
+.btn.ghost:hover:not(:disabled){background:#1F2D27;border-color:#3A4C44}
+.btn.danger{background:transparent;color:#FF8A7A;border-color:#5A2E28}
+.btn.sm{padding:5px 11px;font-size:12px!important}
+.chip,.topicbtn{font-family:var(--f-ui);background:var(--surface);color:var(--ink);border:1px solid #2C3A33;border-radius:8px}
+.chip:hover,.topicbtn:hover{border-color:#4A5E54}
+.chip[aria-pressed="true"],.topicbtn[aria-pressed="true"],.tools .chips .chip[aria-pressed="true"]{background:var(--accent);color:#0C1411;border-color:var(--accent)}
+.chip[aria-pressed="true"] small,.topicbtn[aria-pressed="true"] small{color:#0C1411}
+.tools .chips .chip.nat[aria-pressed="true"]{background:var(--nat);border-color:var(--nat);color:#0C1411}
+.search,select,select.sort,input,textarea{background:var(--surface);color:var(--ink);border-color:#2C3A33}
+.search:focus,select:focus,input:focus,textarea:focus{border-color:var(--accent);outline:none}
+form.edit input,form.edit select,form.edit textarea,.bform textarea,.refrow input{background:#0F1814;border-color:#2C3A33;color:var(--ink)}
+.ctxsel{background:var(--accent)!important;color:#0C1411!important;border-color:var(--accent)!important;font-family:var(--f-ui)}
+.linkbtn{color:var(--link)}
+.tg,.minichip{font-family:var(--f-mono)}
+
+/* superfici */
+.side .box{border-top:1px solid var(--line);padding-top:12px}
+.sect{border-top-color:var(--line)}
+.azcard,.bcard,.azform,details.dform,.card,.leva,.level,.bridge{background:var(--surface);border-color:var(--line)}
+.bout{border-top-color:var(--ink)}
+.bprove a,.pubs a{color:var(--ink)}
+.bprove a:hover,.pubs a:hover{color:var(--accent)}
+a.bdeep{color:var(--ink);text-decoration-color:#4A5E54}
+a.bdeep::after{color:var(--accent)}
+.lezpill{background:var(--accent);color:#0C1411}
+.rqst{border-color:#2C3A33}
+.verify{color:var(--muted)}
+footer{border-top-color:var(--line);color:var(--muted);font-family:var(--f-mono)!important;font-size:11.5px}
+
+/* l'archivio come schede affiancate */
+.results{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:12px;margin-top:6px}
+.results .row{background:var(--surface);border:1px solid var(--line)!important;border-radius:14px;padding:16px 16px 14px!important;align-content:start}
+.results .row:hover{border-color:#3A4C44!important;background:var(--surface2)}
+.results .row .rt{font:600 16px/1.3 var(--f-display);letter-spacing:-.01em;color:var(--ink)}
+.results .row:hover .rt{color:var(--accent)}
+.results .row .ra{font-size:13px;color:var(--muted)}
+.results .row .tg{background:var(--surface2);border:1px solid #2C3A33;color:var(--link);border-radius:6px}
+
+/* la home: la mappa resta identica, su una lastra chiara con i suoi colori */
+#pHome{height:calc(100svh - 69px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px))!important}
+#ecoWrap{
+  --bg:#FAFAF8; --surface:#FFFFFF; --ink:#141414; --muted:#6B6B6B; --line:#E4E4E0; --accent:#0B6BFF; --nat:#10B04A;
+  --c-sis:#3B6F94; --c-soc:#B5523B; --c-lav:#8C6D1F; --c-lea:#6E4A8E; --c-cam:#2D8077; --c-evo:#A8436F; --c-nat:#4E8A35;
+  --m-ind:#FF4D2E; --m-com:#0096FF; --m-lea:#7A3CFF; --m-cul:#FF2D87; --m-cam:#FF9500; --m-app:#00B8A9; --m-ben:#F2B800; --m-tra:#2B44C7;
+  --ring:#F1F1EC; --ring2:#FAFAF6; --f-ui:system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color-scheme:light; color:var(--ink); background:var(--bg)!important;
+  inset:10px 14px 14px!important; border-radius:18px!important; border:1px solid #24322B!important;
+}
+.thesis{background:color-mix(in srgb, #0C1411 92%, transparent)!important;color:var(--ink);border:1px solid var(--line)!important;border-radius:14px;padding:16px 18px!important;backdrop-filter:blur(6px)}
+.thesis h1{font-family:var(--f-display);font-weight:700;letter-spacing:-.025em}
+.thesis p{color:#B9C6BE}
+.ttog{border-color:#2C3A33!important;color:var(--muted)!important}
+.ttog:hover{color:var(--ink)!important;border-color:var(--accent)!important}
+@media (min-width:761px){.thesis,.tools{top:26px!important}.thesis{left:30px!important}.tools{right:30px!important}}
+.tools .chips,.tools .sbox{background:color-mix(in srgb, #0C1411 88%, transparent);border-radius:12px;padding:6px}
+.legend.ov{background:color-mix(in srgb, #0C1411 90%, transparent);color:var(--ink);border-radius:10px;padding:6px 12px;left:30px!important;bottom:26px!important;font-family:var(--f-mono)}
+.stats.ov,.ov.stats{background:color-mix(in srgb, #0C1411 90%, transparent);color:var(--ink);border-radius:10px;padding:6px 12px;right:30px!important;bottom:26px!important;font-family:var(--f-mono)}
+.ecoinfo{background:color-mix(in srgb, #0C1411 95%, transparent)!important;color:var(--ink);border:1px solid var(--line)!important;border-radius:14px!important;left:30px!important}
+.ponte{background:var(--surface)!important;border-right-color:var(--line)!important;border-radius:0 18px 18px 0;top:10px!important;bottom:14px!important;left:14px!important}
+@media (max-width:760px){
+  #ecoWrap{inset:6px 0 8px!important;border-radius:14px!important}
+  .legend.ov{left:12px!important;bottom:14px!important}
+  .thesis{left:12px!important}
+  .stats.ov,.ov.stats{display:none}
+  .ponte{left:0!important;bottom:0!important;border-radius:14px 14px 0 0}
+}
+
+/* l'archivio: barra di ricerca, filtri a scomparsa, filtri attivi */
+#pathBar,#tagBar{display:none!important}
+.archead{margin:6px 0 18px;display:flex;flex-direction:column;gap:8px}
+.archead h2{font-size:clamp(26px,3.4vw,38px)}
+.archead p{color:var(--muted);max-width:72ch}
+.archbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.archbar .search.big{flex:1 1 320px;min-width:0;width:auto;font-size:15px;padding:11px 14px;border-radius:10px}
+.archbar .ctxsel{padding:10px 12px;border-radius:10px;max-width:100%}
+.archbar .btn{padding:10px 16px}
+.fnum{color:var(--accent);margin-left:2px}
+.filtpanel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px 16px 16px;margin-bottom:14px}
+.filtpanel .filt-h:first-child{margin-top:10px}
+.attivi{margin:4px 0 10px;display:flex;flex-direction:column;gap:6px}
+.attrow{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.attrow .chip.on{background:var(--accent);color:#0C1411;border-color:var(--accent);font-weight:600}
+.attrow .chip .fk{font:500 10.5px var(--f-mono);text-transform:uppercase;letter-spacing:.06em;opacity:.7;margin-right:6px}
+.fdef{font-size:13px;color:var(--muted);max-width:80ch;margin:0}
+.fdef b{color:var(--ink);font-weight:600}
+.zero{grid-column:1 / -1;background:var(--surface);border:1px dashed #3A4C44;border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.zero ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.zero li{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
+.zero .btn{align-self:flex-start}
+</style>
