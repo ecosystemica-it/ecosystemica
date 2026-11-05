@@ -928,10 +928,10 @@ $("pathSel").onchange = ev => openTema(ev.target.value || null);
 $("ctxSel").onchange = ev => openTema(ev.target.value || null);
 LIVELLI.forEach((l, i) => { const g = document.createElement("optgroup"); g.label = l.n; TEMI.filter(t => t.liv === i).forEach(t => { const o = document.createElement("option"); o.value = t.k; o.textContent = t.n; g.appendChild(o); }); $("ctxArch").appendChild(g); });
 $("ctxArch").onchange = ev => { state.path = ev.target.value || null; state.shown = 60; update(); };
-$("eFit").onclick = () => ECO.fit && ECO.fit();
-$("eD").onclick = ev => { ECO.decl = !ECO.decl; ev.currentTarget.setAttribute("aria-pressed", ECO.decl); ECO.svg && ECO.svg.classed("no-decl", !ECO.decl); };
-$("eT").onclick = ev => { ECO.temi = !ECO.temi; ev.currentTarget.setAttribute("aria-pressed", ECO.temi); ECO.svg && ECO.svg.classed("no-temi", !ECO.temi); };
-$("eN").onclick = ev => { ECO.nat = !ECO.nat; ev.currentTarget.setAttribute("aria-pressed", ECO.nat); ECO.svg && ECO.svg.classed("natmode", ECO.nat); };
+if ($("eFit")) $("eFit").onclick = () => ECO.fit && ECO.fit();
+if ($("eD")) $("eD").onclick = ev => { ECO.decl = !ECO.decl; ev.currentTarget.setAttribute("aria-pressed", ECO.decl); ECO.svg && ECO.svg.classed("no-decl", !ECO.decl); };
+if ($("eT")) $("eT").onclick = ev => { ECO.temi = !ECO.temi; ev.currentTarget.setAttribute("aria-pressed", ECO.temi); ECO.svg && ECO.svg.classed("no-temi", !ECO.temi); };
+if ($("eN")) $("eN").onclick = ev => { ECO.nat = !ECO.nat; ev.currentTarget.setAttribute("aria-pressed", ECO.nat); ECO.svg && ECO.svg.classed("natmode", ECO.nat); };
 function setThesis(min, salva){
   const t = $("thesis"), b = $("thesisToggle"); t.classList.toggle("min", min);
   b.textContent = min ? "Leggi tutto ▾" : "Riduci ▴"; b.title = min ? "Mostra il testo completo" : "Riduci al solo titolo"; b.setAttribute("aria-expanded", String(!min));
@@ -1355,6 +1355,7 @@ const ERR_IT = [
   [/email not confirmed/i, "Devi prima confermare l'email: apri il messaggio che ti abbiamo mandato e clicca il link."],
   [/already registered|already been registered/i, "Questa email è già iscritta: accedi con la tua password."],
   [/password should be at least|weak password/i, "La password è troppo debole: usa almeno 8 caratteri, con lettere e numeri."],
+  [/sending (confirmation|recovery|magic link)? ?email|error sending/i, "Non riusciamo a spedire l'email in questo momento: riprova fra qualche minuto."],
   [/rate limit|too many/i, "Troppi tentativi in poco tempo: riprova fra qualche minuto."],
   [/invalid email|unable to validate email/i, "L'indirizzo email non sembra valido."]
 ];

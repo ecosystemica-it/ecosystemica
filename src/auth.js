@@ -65,6 +65,7 @@ const ERR_IT = [
   [/email not confirmed/i, "Devi prima confermare l'email: apri il messaggio che ti abbiamo mandato e clicca il link."],
   [/already registered|already been registered/i, "Questa email è già iscritta: accedi con la tua password."],
   [/password should be at least|weak password/i, "La password è troppo debole: usa almeno 8 caratteri, con lettere e numeri."],
+  [/sending (confirmation|recovery|magic link)? ?email|error sending/i, "Non riusciamo a spedire l'email in questo momento: riprova fra qualche minuto."],
   [/rate limit|too many/i, "Troppi tentativi in poco tempo: riprova fra qualche minuto."],
   [/invalid email|unable to validate email/i, "L'indirizzo email non sembra valido."]
 ];

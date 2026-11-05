@@ -274,10 +274,10 @@ $("pathSel").onchange = ev => openTema(ev.target.value || null);
 $("ctxSel").onchange = ev => openTema(ev.target.value || null);
 LIVELLI.forEach((l, i) => { const g = document.createElement("optgroup"); g.label = l.n; TEMI.filter(t => t.liv === i).forEach(t => { const o = document.createElement("option"); o.value = t.k; o.textContent = t.n; g.appendChild(o); }); $("ctxArch").appendChild(g); });
 $("ctxArch").onchange = ev => { state.path = ev.target.value || null; state.shown = 60; update(); };
-$("eFit").onclick = () => ECO.fit && ECO.fit();
-$("eD").onclick = ev => { ECO.decl = !ECO.decl; ev.currentTarget.setAttribute("aria-pressed", ECO.decl); ECO.svg && ECO.svg.classed("no-decl", !ECO.decl); };
-$("eT").onclick = ev => { ECO.temi = !ECO.temi; ev.currentTarget.setAttribute("aria-pressed", ECO.temi); ECO.svg && ECO.svg.classed("no-temi", !ECO.temi); };
-$("eN").onclick = ev => { ECO.nat = !ECO.nat; ev.currentTarget.setAttribute("aria-pressed", ECO.nat); ECO.svg && ECO.svg.classed("natmode", ECO.nat); };
+if ($("eFit")) $("eFit").onclick = () => ECO.fit && ECO.fit();
+if ($("eD")) $("eD").onclick = ev => { ECO.decl = !ECO.decl; ev.currentTarget.setAttribute("aria-pressed", ECO.decl); ECO.svg && ECO.svg.classed("no-decl", !ECO.decl); };
+if ($("eT")) $("eT").onclick = ev => { ECO.temi = !ECO.temi; ev.currentTarget.setAttribute("aria-pressed", ECO.temi); ECO.svg && ECO.svg.classed("no-temi", !ECO.temi); };
+if ($("eN")) $("eN").onclick = ev => { ECO.nat = !ECO.nat; ev.currentTarget.setAttribute("aria-pressed", ECO.nat); ECO.svg && ECO.svg.classed("natmode", ECO.nat); };
 function setThesis(min, salva){
   const t = $("thesis"), b = $("thesisToggle"); t.classList.toggle("min", min);
   b.textContent = min ? "Leggi tutto ▾" : "Riduci ▴"; b.title = min ? "Mostra il testo completo" : "Riduci al solo titolo"; b.setAttribute("aria-expanded", String(!min));
