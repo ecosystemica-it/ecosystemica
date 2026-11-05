@@ -116,11 +116,11 @@ function affini(s){
 }
 
 // ---------- instradamento ----------
-const PAGES = ["pHome","pModello","pArchivio","pAutori","pScheda","pAutore","pBrief","pApprof","pAnalogia","pInterventi","pAzienda","pRedazione","pBiblio"];
+const PAGES = ["pHome","pChiSiamo","pModello","pArchivio","pAutori","pScheda","pAutore","pBrief","pApprof","pAnalogia","pInterventi","pAzienda","pRedazione","pBiblio"];
 function show(p){
   PAGES.forEach(x => $(x).hidden = x !== p);
   document.body.classList.toggle("home", p === "pHome");
-  const nav = {pHome:"home", pModello:"modello", pArchivio:"archivio", pAutori:"autori", pScheda:"archivio", pAutore:"autori", pBrief:"brief", pApprof:"brief", pAnalogia:"home", pInterventi:"interventi", pAzienda:"interventi", pRedazione:"redazione", pBiblio:"biblioteca"}[p];
+  const nav = {pHome:"home", pChiSiamo:"chi-siamo", pModello:"modello", pArchivio:"archivio", pAutori:"autori", pScheda:"archivio", pAutore:"autori", pBrief:"brief", pApprof:"brief", pAnalogia:"home", pInterventi:"interventi", pAzienda:"interventi", pRedazione:"redazione", pBiblio:"biblioteca"}[p];
   document.querySelectorAll("[data-nav]").forEach(a => { if (a.dataset.nav === nav) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
 }
 // pagine riservate all'amministratore: per chiunque altro non esistono
@@ -132,6 +132,7 @@ function route(){
     if (ruoloNoto) { location.hash = ""; return; }
     show("pHome"); return;
   }
+  if (h === "chi-siamo") { show("pChiSiamo"); window.scrollTo(0, 0); return; }
   if (h === "modello") { show("pModello"); window.scrollTo(0, 0); return; }
   if (h === "archivio") { show("pArchivio"); update(); window.scrollTo(0, 0); return; }
   if (h === "brief") {
