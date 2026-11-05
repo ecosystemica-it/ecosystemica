@@ -71,18 +71,33 @@ EXTRA = """
 .legale p,.legale li{color:#C9D4CD;max-width:72ch}
 .legale p+p{margin-top:10px}
 .colleg{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.authnav{display:flex;gap:8px;align-items:center;flex:none}
+.authnav .btn{white-space:nowrap;text-decoration:none}
+@media (max-width:900px){.top .brand{flex:1 1 0;min-width:0}.authnav{order:2;margin-left:auto}.top nav{order:3}}
+dialog.authdlg{border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);padding:0;width:min(440px,calc(100vw - 32px));max-height:calc(100svh - 32px)}
+dialog.authdlg::backdrop{background:rgba(5,10,8,.72);backdrop-filter:blur(3px)}
+.authform{padding:22px 22px 18px;display:flex;flex-direction:column;gap:12px;margin:0!important;border:0!important;background:transparent!important}
+.authform h2{font-size:22px;margin:0}
+.authhead{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.authform label{display:flex;flex-direction:column;gap:5px;font:500 13px var(--f-ui);letter-spacing:0;text-transform:none;color:var(--muted)}
+.authform input[type=email],.authform input[type=password],.authform input:not([type]){font:inherit;font-size:15px;padding:10px 12px;border-radius:8px;border:1px solid #2C3A33;background:#0F1814;color:var(--ink)}
+.authform .aucheck{display:block;line-height:1.5;color:var(--ink)}
+.authform .aucheck input{margin:0 8px 0 0;vertical-align:-2px}
+.authform .bibhelp{text-transform:none;letter-spacing:0;font-family:var(--f-ui)}
+.aulinks{font-size:13px;color:var(--muted);margin:0}
 .anteprima{background:var(--accent);color:#0C1411;text-align:center;font:600 12.5px var(--f-ui);padding:6px 12px}
 """
 css = RESET + "\n" + "\n".join(ff) + "\n" + "\n".join(stili(f) for f in ["head.html", "style2.html", "m3style.html", "m4style.html", "m5style.html"]) + EXTRA
 open(f"{OUT}/assets/site.css", "w").write(css)
 
 shutil.copy(C + "/vendor/d3.min.js", f"{OUT}/assets/d3.min.js")
+shutil.copy(C + "/vendor/supabase.js", f"{OUT}/assets/supabase.js")
 LOGO = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none" stroke="#C6F36B" stroke-width="1.6"><circle cx="20" cy="20" r="18"/><circle cx="20" cy="20" r="12" opacity=".7"/><circle cx="20" cy="20" r="6" opacity=".45"/><circle cx="20" cy="20" r="2.4" fill="#C6F36B" stroke="none"/><circle cx="33.5" cy="12" r="2.4" fill="#C6F36B" stroke="none"/></svg>'
 open(f"{OUT}/assets/logo.svg", "w").write(LOGO)
 
 # ---------- dati e codice della pagina principale ----------
 open(f"{OUT}/assets/dati.js", "w").write("window.__DATA=" + json.dumps({"schede": schede, "autori": autori, "ponti": ponti, "vocabolario": voc}, ensure_ascii=False, separators=(",", ":")) + ";")
-js = "\n".join(open(f"{C}/{f}").read() for f in ["app.js", "eco5.js", "ponti.js", "tag.js", "archivio.js", "boot-pub.js"])
+js = "\n".join(open(f"{C}/{f}").read() for f in ["app.js", "eco5.js", "ponti.js", "tag.js", "archivio.js", "biblio.js", "auth.js", "boot-pub.js"])
 open(f"{OUT}/assets/app.js", "w").write(js)
 
 ROBOTS = "" if LANCIO else '<meta name="robots" content="noindex, nofollow">'
@@ -102,12 +117,14 @@ for pid in ["pBrief", "pApprof", "pInterventi", "pAzienda", "pRedazione"]:
 body = re.sub(r'<a href="#[a-z]+" data-nav="(brief|interventi|redazione)" class="adm">[^<]*</a>', "", body)
 body = re.sub(r"<footer>.*?</footer>", FOOT, body, flags=re.S)
 body = body.replace('<a href="#brief" class="adm">Dal brief al protocollo →</a>', "")
+body = re.sub(r'(<header class="top">.*?</nav>)', r'\1<div class="authnav" id="authNav"></div>', body, count=1, flags=re.S)
+body = body.replace(FOOT, '<dialog id="authDlg" class="authdlg" aria-label="Accesso"><div id="authBox"></div></dialog>' + FOOT)
 DESCR = "Centro studi sistemici sulle organizzazioni e il lavoro: un archivio ragionato di ricerche su persone, gruppi e organizzazioni, con le evidenze documentate dai sistemi naturali."
 open(f"{OUT}/index.html", "w").write(testa("Ecosystemica · Centro studi sistemici sulle organizzazioni e il lavoro", DESCR, "/") + "<body>" + BANNER + body +
-    '<script src="/assets/d3.min.js"></script><script src="/assets/dati.js"></script><script src="/assets/app.js"></script></body></html>')
+    '<script src="/assets/d3.min.js"></script><script src="/assets/supabase.js"></script><script src="/assets/dati.js"></script><script src="/assets/app.js"></script></body></html>')
 
 # ---------- intestazione delle pagine statiche ----------
-NAV = [("/", "La mappa"), ("/#modello", "Il modello"), ("/#archivio", "L'archivio"), ("/#autori", "Gli autori")]
+NAV = [("/", "La mappa"), ("/#modello", "Il modello"), ("/#archivio", "L'archivio"), ("/#autori", "Gli autori"), ("/#biblioteca", "La mia biblioteca")]
 def header(att=""):
     return f'''<div class="wrap"><header class="top"><a class="brand" href="/" aria-label="Ecosystemica, Centro studi sistemici sulle organizzazioni e il lavoro"><span class="logo" aria-hidden="true">{LOGO.replace('stroke="#C6F36B"', 'stroke="currentColor"').replace('fill="#C6F36B"', 'fill="currentColor"')}</span><span class="bname">Ecosystemica</span><span class="bsub">Centro studi sistemici sulle organizzazioni e il lavoro</span></a>
 <nav aria-label="Sezioni">{"".join(f'<a href="{h}"{" aria-current=\"page\"" if n == att else ""}>{n}</a>' for h, n in NAV)}</nav></header>'''
@@ -188,12 +205,15 @@ LEG = {
 "privacy": ("Informativa sulla privacy", f'''<h1>Informativa sulla privacy</h1>
 <p>Informativa resa ai sensi degli articoli 13 e 14 del Regolamento (UE) 2016/679.</p>
 <h2>Titolare del trattamento</h2><p>{E(T["nome"])}, {E(T["sede"])}, partita IVA {E(T["piva"])}. Contatto: {E(T["email"])}.</p>
-<h2>Che cosa raccogliamo</h2><p>Questo sito si consulta senza registrazione e non contiene moduli per l'invio di dati personali. Non usa cookie di profilazione né strumenti di statistica che tracciano i visitatori, e i caratteri tipografici sono ospitati sul sito stesso, senza richieste a servizi esterni.</p>
+<h2>Che cosa raccogliamo</h2><p>Il sito si consulta liberamente, senza registrazione. Non usa cookie di profilazione né strumenti di statistica che tracciano i visitatori, e i caratteri tipografici sono ospitati sul sito stesso, senza richieste a servizi esterni.</p>
+<h2>Account e biblioteca personale</h2><p>Chi si iscrive ci affida l'indirizzo email, il nome se lo indica, una password e ciò che salva nella propria biblioteca: schede, autori, ricerche, note e raccolte. Usiamo questi dati solo per gestire l'account e offrire la biblioteca, cioè per eseguire il servizio richiesto (articolo 6, paragrafo 1, lettera b del Regolamento). La password non è mai conservata in chiaro.</p>
+<p>Account e biblioteca sono gestiti da Supabase, Inc., che opera come responsabile del trattamento con server nell'Unione europea (Francoforte). Le email di servizio, come la conferma dell'iscrizione e il recupero della password, partono attraverso lo stesso fornitore. Per mantenerti collegato il sito conserva nella memoria del tuo browser un codice di accesso, strettamente necessario al servizio.</p>
+<p>I dati restano finché l'account è attivo. Per cancellare l'account e tutto ciò che hai salvato basta scrivere all'indirizzo del titolare: la cancellazione avviene entro trenta giorni.</p>
 <p>Come ogni sito web, il servizio di hosting registra in forma tecnica alcune informazioni sulle richieste ricevute, come l'indirizzo IP, la data e l'ora e la pagina richiesta. Servono solo a far funzionare il sito e a proteggerlo da abusi, e sono conservate dal fornitore per il tempo previsto dalle sue condizioni.</p>
 <h2>Fornitore di hosting</h2><p>Il sito è ospitato da Netlify, Inc., che tratta i dati tecnici come responsabile del trattamento. Netlify ha sede negli Stati Uniti: il trasferimento dei dati avviene sulla base delle garanzie previste dal Regolamento, indicate nell'accordo sul trattamento dei dati del fornitore.</p>
 <h2>Collegamenti esterni</h2><p>Le schede contengono collegamenti alle pubblicazioni originali su siti di editori, riviste e biblioteche. Quando li apri, quei siti trattano i tuoi dati secondo le proprie informative.</p>
 <h2>I tuoi diritti</h2><p>Puoi chiedere in ogni momento l'accesso ai tuoi dati, la rettifica, la cancellazione, la limitazione o l'opposizione al trattamento scrivendo all'indirizzo del titolare. Puoi anche proporre reclamo al Garante per la protezione dei dati personali.</p>
-<p>Questa informativa verrà aggiornata quando il sito offrirà l'iscrizione e le funzioni riservate agli iscritti.</p>
+
 <p class="rmeta">Ultimo aggiornamento: {OGGI}.</p>'''),
 }
 for slug_, (tit, testo) in LEG.items():
