@@ -33,27 +33,27 @@ const LEVE = [
   {k:"rel", n:"Relazioni e informazione", q:"", legge:"Interrelazione", da:"Kelly: interdipendenza",
    cosa:"La qualità dei legami fra persone e reparti: quanto si parlano, si fidano, si dicono le cose scomode, e dove l'informazione si ferma prima di arrivare a chi decide.",
    segni:"Comunicazione solo scritta e sempre con qualcuno in copia; reparti che non si parlano; riunioni silenziose e corridoi pieni.",
-   uno:"", sis:"", fonti:"Kelly 1966; Edmondson 1999; Hirschman 1970"},
+   uno:"", sis:"", origine:"Viene dal principio di interdipendenza di James G. Kelly: in un sistema ogni parte dipende dalle altre, e ciò che cambia in un punto si propaga a tutto il resto.", fonti:"Kelly 1966; Edmondson 1999; Hirschman 1970"},
   {k:"car", n:"Energie e carichi", q:"", legge:"Distribuzione delle risorse", da:"Kelly: ciclicità delle risorse",
    cosa:"Come si distribuiscono lavoro, tempo, informazioni e decisioni: dove si formano i colli di bottiglia e dove una risorsa resta inutilizzata.",
    segni:"Sempre le stesse persone sovraccariche; attese per un'approvazione; lavoro fatto due volte da chi non lo sa.",
-   uno:"", sis:"", fonti:"Kelly 1966; Meadows 2008; Bakker e Demerouti 2007"},
+   uno:"", sis:"", origine:"Viene dal principio di ciclicità delle risorse di Kelly: in un sistema le risorse circolano, e dove il giro si interrompe una parte si sovraccarica mentre un'altra resta ferma.", fonti:"Kelly 1966; Meadows 2008; Bakker e Demerouti 2007"},
   {k:"gui", n:"Guida e decisione", q:"", legge:"Guida distribuita", da:"aggiunta del metodo",
    cosa:"Chi guida e chi decide, e se la guida si sposta verso chi ha l'informazione, dentro una cornice in cui la responsabilità finale resta chiara.",
    segni:"Tutto passa da una persona, oppure nessuno decide; deleghe solo sulla carta; il capo parla per primo e tutti si allineano.",
-   uno:"", sis:"", fonti:"Pearce e Conger 2003; Bienefeld e Grote 2014; Simon 1947"},
+   uno:"", sis:"", origine:"È un'aggiunta del metodo ai principi di Kelly. Poggia sulla ricerca sulla guida condivisa: la guida passa a chi ha l'informazione, mentre la responsabilità finale resta di qualcuno.", fonti:"Pearce e Conger 2003; Bienefeld e Grote 2014; Simon 1947"},
   {k:"app", n:"Apprendimento e adattamento", q:"", legge:"Adattamento ai cambiamenti esterni", da:"Kelly: adattamento",
    cosa:"La capacità di imparare da ciò che succede e di rispondere al mercato e alle crisi senza irrigidirsi e senza disgregarsi.",
    segni:"Gli stessi errori che ritornano; davanti a un cambiamento, rigidità o caos; «si è sempre fatto così».",
-   uno:"", sis:"", fonti:"Kelly 1966; Argyris e Schön 1978; Lawrence e Lorsch 1967"},
+   uno:"", sis:"", origine:"Viene dal principio di adattamento di Kelly: un sistema dura se cambia insieme all'ambiente in cui vive.", fonti:"Kelly 1966; Argyris e Schön 1978; Lawrence e Lorsch 1967"},
   {k:"cul", n:"Cultura e senso", q:"", legge:"Identità e cultura", da:"Kelly: successione",
-   cosa:"Gli assunti che il gruppo ha imparato nel tempo e dà per scontati, i valori vissuti, i riti e le storie che dicono che cosa conta davvero. Per Kelly ogni sistema ha una storia: in un'organizzazione quel deposito si chiama cultura.",
+   cosa:"Gli assunti che il gruppo ha imparato nel tempo e dà per scontati, i valori vissuti, i riti e le storie che dicono che cosa conta davvero.",
    segni:"Valori scritti sul sito e mai visti nei comportamenti; nuovi assunti che si adeguano in fretta o se ne vanno; fusioni che funzionano sulla carta e non nei corridoi.",
-   uno:"", sis:"", fonti:"Kelly 1966; Schein 1985; Cameron e Quinn 1999"},
+   uno:"", sis:"", origine:"Viene dal principio di successione di Kelly: ogni sistema ha una storia che orienta il suo presente, e in un'organizzazione quel deposito si chiama cultura.", fonti:"Kelly 1966; Schein 1985; Cameron e Quinn 1999"},
   {k:"rig", n:"Recupero e rigenerazione", q:"", legge:"Rigenerazione", da:"aggiunta del metodo",
    cosa:"Il bilancio fra ciò che consuma le persone e ciò che le rimette in piedi: pause, ritmi, spazi, contatto con la natura. Senza recupero nessun'altra leva si muove, perché un sistema esausto non impara e non si fida.",
    segni:"Stanchezza che non passa nel fine settimana; irritabilità e assenze; i migliori che se ne vanno; pause che non sono pause.",
-   uno:"", sis:"", fonti:"Sonnentag e Fritz 2007; Kaplan e Kaplan 1989; Kellert e Calabrese 2015"}
+   uno:"", sis:"", origine:"È un'aggiunta del metodo ai principi di Kelly. Poggia sulla ricerca sul recupero dalla fatica del lavoro e su quella sugli effetti rigenerativi degli ambienti naturali.", fonti:"Sonnentag e Fritz 2007; Kaplan e Kaplan 1989; Kellert e Calabrese 2015"}
 ];
 const TIPI = ["articolo","libro","capitolo","rapporto","caso"];
 const TIPO_N = {articolo:"articolo", libro:"libro", capitolo:"capitolo", rapporto:"rapporto", caso:"caso studio"};
@@ -640,18 +640,27 @@ function renderNatura(){
 // ---------- livelli del modello ----------
 function renderLivelli(){
   const box = $("levels2"); if (!box) return;
-  box.innerHTML = LIVELLI.map((l, i) => `<div class="lv"><span class="n">${i + 1}</span><h3>${l.n}</h3><p>${l.d}</p><div class="chips">${l.m.map(k => `<button class="chip" data-lm="${k}"><span class="dot" style="background:${mcol(k)}"></span>${esc(macroOf(k).n)} · ${SCHEDE.filter(s => s.macro === k).length}</button>`).join("")}</div></div>`).join("");
+  box.innerHTML = LIVELLI.map((l, i) => `<div class="lv"><span class="n">${i + 1}</span><h3>${l.n}</h3><p>${l.d}</p><div class="chips">${l.m.map(k => `<button class="chip go" data-lm="${k}"><span class="dot" style="background:${mcol(k)}"></span>${esc(macroOf(k).n)} · ${SCHEDE.filter(s => s.macro === k).length}</button>`).join("")}</div></div>`).join("");
   box.querySelectorAll("[data-lm]").forEach(b => b.onclick = () => apriArchivio({macro:b.dataset.lm}));
 }
 
 // ---------- leve ----------
 function renderLeve(){
   const g = $("leveGrid"); if (!g) return; g.innerHTML = "";
+  // gli studi da cui parte ogni leva: se la scheda è in archivio diventa un collegamento
+  const studio = f => { const m = f.match(/^(.*) (\d{4})$/); if (!m) return esc(f);
+    const cog = m[1].split(/ e | /)[0].toLowerCase(), s = SCHEDE.find(x => String(x.anno) === m[2] && label(x).toLowerCase().includes(cog));
+    return s ? `<a href="#scheda-${encodeURIComponent(s.id)}">${esc(f)}</a> <span class="lvtit">${esc(s.titolo)}</span>` : `${esc(f)}`; };
   LEVE.forEach((l, i) => {
     const n = SCHEDE.filter(s => s.leve.includes(l.k)).length;
     const d = document.createElement("article"); d.className = "leva";
-    d.innerHTML = `<p class="lvtop"><span class="n">Leva ${i + 1}</span><span class="lvorig">Legge: ${esc(l.legge)} · ${esc(l.da)}</span></p><h3>${esc(l.n)}</h3>${canEdit && l.q ? `<p class="lvq">«${esc(l.q)}»</p>` : ""}<p>${esc(l.cosa)}</p><p class="lvseg"><b>Come si riconosce.</b> ${esc(l.segni)}</p>${canEdit && l.uno ? `<div class="lvfacce"><div><span class="ctl-label">Nella persona</span>${esc(l.uno)}</div><div><span class="ctl-label">Nel sistema</span>${esc(l.sis)}</div></div>` : ""}<p class="lvfonti">Fonti: ${esc(l.fonti)}</p>`;
-    const b = document.createElement("button"); b.className = "chip"; b.textContent = SCHEDE.length ? `${n} schede nell'archivio →` : "Apri nell'archivio →";
+    d.innerHTML = `<p class="lvtop"><span class="n">Leva ${i + 1}</span></p><h3>${esc(l.n)}</h3>${canEdit && l.q ? `<p class="lvq">«${esc(l.q)}»</p>` : ""}
+      <p>${esc(l.cosa)}</p>
+      <p class="lvseg"><b>Come si riconosce in azienda.</b> ${esc(l.segni)}</p>
+      ${canEdit && l.uno ? `<div class="lvfacce"><div><span class="ctl-label">Nella persona</span>${esc(l.uno)}</div><div><span class="ctl-label">Nel sistema</span>${esc(l.sis)}</div></div>` : ""}
+      ${l.origine ? `<p class="lvorig"><b>Da dove viene.</b> ${esc(l.origine)}</p>` : ""}
+      <div class="lvstudi"><span class="ctl-label">Gli studi da cui parte</span><ul>${l.fonti.split("; ").map(f => `<li>${studio(f)}</li>`).join("")}</ul></div>`;
+    const b = document.createElement("button"); b.className = "btn lvgo"; b.textContent = SCHEDE.length ? `Le ${n} schede su questa leva →` : "Apri nell'archivio →";
     b.onclick = () => apriArchivio({leva:l.k});
     d.appendChild(b); g.appendChild(d);
   });
