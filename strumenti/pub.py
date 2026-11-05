@@ -60,7 +60,7 @@ def stili(fn):
     return "\n".join(re.findall(r"<style>(.*?)</style>", open(f"{C}/{fn}").read(), re.S))
 RESET = ":root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}*,*::before,*::after{box-sizing:border-box}"
 EXTRA = """
-.pubfoot{display:flex;flex-direction:column;gap:10px}.pubfoot .pfrow{display:flex;flex-wrap:wrap;gap:6px 18px}.pubfoot .pfcopy{margin:0;max-width:78ch;font-size:12px;line-height:1.55;color:var(--muted)}
+.pubfoot{display:flex;flex-direction:column;gap:10px}.legend.crediti{display:flex!important;flex-direction:column;gap:5px;max-width:min(700px,calc(100% - 580px))!important;font-family:var(--f-mono);font-size:11px;padding:8px 12px!important;line-height:1.4}.legend.crediti .pfrow{display:flex;flex-wrap:wrap;gap:2px 14px}.legend.crediti a{color:var(--muted)}.legend.crediti a:hover{color:var(--ink)}.legend.crediti .pfcopy{margin:0;font-size:9.5px;line-height:1.45;color:var(--muted);max-width:none}@media (max-width:1100px){.legend.crediti{max-width:calc(100% - 560px)!important}.legend.crediti .pfcopy{display:none}}@media (min-width:761px){#pHome .thesis{max-height:calc(100% - 200px);overflow:auto}.legend.crediti{background:color-mix(in srgb, #0C1411 96%, transparent)!important}}@media (min-width:761px) and (max-width:1100px){#pHome .thesis{max-height:calc(100% - 150px)}}.pubfoot .pfrow{display:flex;flex-wrap:wrap;gap:6px 18px}.pubfoot .pfcopy{margin:0;max-width:78ch;font-size:12px;line-height:1.55;color:var(--muted)}
 .pubfoot a{color:var(--muted)}
 .pg{max-width:1180px;margin:0 auto}
 .pg .detail{margin-top:8px}
@@ -127,6 +127,9 @@ for pid in ["pBrief", "pApprof", "pInterventi", "pAzienda", "pRedazione"]:
     body = re.sub(rf'<main id="{pid}"[^>]*>.*?</main>', f'<main id="{pid}" class="page" hidden></main>', body, flags=re.S)
 body = re.sub(r'<a href="#[a-z]+" data-nav="(brief|interventi|redazione)" class="adm">[^<]*</a>', "", body)
 body = re.sub(r"<footer>.*?</footer>", FOOT, body, flags=re.S)
+# in home, al posto della legenda della mappa: crediti, contatti e nota sui diritti
+CREDITI = FOOT.replace('<footer class="pubfoot">', '<div class="ov legend crediti">').replace("</footer>", "</div>")
+body = re.sub(r'<div class="ov legend">.*?</div>', lambda m: CREDITI, body, count=1, flags=re.S)
 body = body.replace('<a href="#brief" class="adm">Dal brief al protocollo →</a>', "")
 body = re.sub(r'(<header class="top">.*?</nav>)', r'\1<div class="authnav" id="authNav"></div>', body, count=1, flags=re.S)
 body = body.replace(FOOT, '<dialog id="authDlg" class="authdlg" aria-label="Accesso"><div id="authBox"></div></dialog>' + FOOT)
