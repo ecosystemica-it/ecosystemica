@@ -204,4 +204,17 @@ for slug_, (tit, testo) in LEG.items():
 open(f"{OUT}/404.html", "w").write(testa("Pagina non trovata · Ecosystemica", "Pagina non trovata.", "/404") + "<body>" + header() + '<main class="page pg legale"><h1>Questa pagina non c&#39;è</h1><p>Forse la scheda ha cambiato indirizzo. Riparti dalla <a href="/">mappa</a> o dall&#39;<a href="/#archivio">archivio</a>.</p></main>' + FOOT + "</div></body></html>")
 open(f"{OUT}/sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(f"<url><loc>{BASE}{p}</loc><lastmod>{d}</lastmod></url>" for p, d in sitemap) + "\n</urlset>\n")
 open(f"{OUT}/robots.txt", "w").write(f"User-agent: *\nAllow: /\nSitemap: {BASE}/sitemap.xml\n" if LANCIO else "User-agent: *\nDisallow: /\n")
+# intestazioni di sicurezza e cache per Cloudflare Pages
+open(f"{OUT}/_headers", "w").write("""/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+/assets/*
+  Cache-Control: public, max-age=3600
+
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+""")
 print("pagine scritte:", len(sitemap) + 1)
