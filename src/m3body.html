@@ -119,7 +119,6 @@ body.home footer{display:none}
       <h1>Quattro livelli, un solo sistema</h1>
       <p class="lead">Un'impresa è un sistema sociotecnico: da una parte le persone e le loro relazioni, dall'altra i processi, gli strumenti e i contenuti del lavoro, legati in modo che non si può cambiare l'una senza toccare l'altra (Trist e Bamforth). È anche un sistema aperto, che vive degli scambi con l'ambiente da cui prende persone, informazioni e risorse (Bertalanffy; Katz e Kahn). Il Centro Studi lo legge su quattro livelli, la persona al lavoro, il gruppo, l'organizzazione e l'ambiente, e porta dentro ciascuno le evidenze dei sistemi viventi in due modi: come modello documentato dei meccanismi che regolano il sistema e come fattore misurato che agisce su chi ci lavora.</p>
     </div>
-    <div class="levels2" id="levels2"></div>
     <div class="sec-head" style="margin-top:44px"><div><p class="eyebrow">Dove si interviene</p><h2>Le sei leve</h2></div><div class="lvintro"><p><b>Che cos'è una leva.</b> Il cliente porta un contesto, cioè il problema con le sue parole: perdiamo i talenti, i reparti litigano, le decisioni sono lente. La legge spiega perché quel problema si produce nel sistema. La leva è il punto dove si mette mano per spostarlo, con strumenti e misure precise. Lo stesso contesto può chiedere leve diverse, e la diagnosi serve a scegliere quella che trascina le altre.</p><p><b>Da dove arrivano.</b> L'idea che in un sistema esistano punti dove una piccola spinta produce grandi effetti è di Donella Meadows. Le leve sono sei perché il metodo descrive l'organizzazione con sei leggi e dà a ciascuna la sua leva. Quattro leggi sviluppano i principi ecologici che James G. Kelly propose nel 1966 per la psicologia di comunità: interdipendenza, ciclicità delle risorse, adattamento e successione, cioè la storia del sistema, che in un'organizzazione si chiama cultura. Le altre due, la guida distribuita e la rigenerazione, sono aggiunte del metodo e poggiano sulla ricerca sulla guida condivisa e sul recupero. Lo schema è un'ipotesi di lavoro: va ancora validato con un panel di esperti e con un questionario.</p></div>
     <div class="leve" id="leveGrid"></div>
     <p class="verify" style="margin-top:36px">Ogni scheda cita la fonte originale e riassume con parole nostre. Le schede con asterisco sono da verificare sull'originale.</p>
@@ -134,9 +133,12 @@ body.home footer{display:none}
       <select class="sort ctxsel" id="ctxArch" aria-label="Contesto"><option value="">Tutti i contesti</option></select>
       <button class="btn ghost" id="filtBtn" type="button" aria-expanded="false" aria-controls="filtPanel">Filtri<span class="fnum" id="filtNum"></span></button>
     </div>
-    <div class="filtpanel" id="filtPanel" hidden>
-      <p class="filt-h">Dove si trova il problema</p>
+    <div class="archlev">
+      <button class="archlevtog" id="archlevTog" type="button" aria-expanded="false" aria-controls="areaChips">Dove si trova il problema: livelli e aree ▾</button>
+      <p class="filt-h">Dove si trova il problema <span class="hint">Tocca un livello o un'area per vedere solo le sue schede; toccalo di nuovo per togliere il filtro.</span></p>
       <div class="levgrid" id="areaChips" role="group" aria-label="Filtra per livello e macro-area"></div>
+    </div>
+    <div class="filtpanel" id="filtPanel" hidden>
       <p class="filt-h">Leva d'intervento <span class="hint">Le sei dimensioni del modello su cui si appoggia l'archivio.</span></p>
       <div class="controls"><div class="chips" id="levaChips" role="group" aria-label="Filtra per leva d'intervento"></div></div>
       <div class="toolbar">

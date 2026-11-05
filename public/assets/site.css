@@ -997,6 +997,20 @@ footer{border-top-color:var(--line);color:var(--muted);font-family:var(--f-mono)
 .chisiamo .actions .btn{text-decoration:none}
 @media (max-width:760px){.top nav{flex-wrap:wrap;overflow:visible;gap:2px!important}.top nav a{padding:6px 7px;font-size:12.5px!important}}
 
+/* archivio: livelli e aree sempre visibili sopra le schede */
+.archlev{margin:4px 0 14px}
+.archlev .filt-h{margin-top:6px}
+.archlev .levgrid{border-top:2px solid var(--ink)}
+.archlev .lvcol{padding-block:12px}
+.archlev .lvh{font-size:16px;font-family:var(--f-display)}
+.archlev .lvh .lvn{font-family:var(--f-mono)}
+.archlev .lvd{margin:0 0 4px;font-size:12.5px;line-height:1.4;color:var(--muted)}
+.archlevtog{display:none}
+@media (max-width:760px){.archlev .lvd,.archlev .filt-h{display:none}.archlev .lvh{font-size:14.5px}
+  .archlevtog{display:block;width:100%;text-align:left;font:600 14px var(--f-ui);color:#0C1411;background:var(--accent);border:1px solid var(--accent);border-radius:10px;padding:11px 14px;cursor:pointer}
+  .archlev:not(.aperto) .levgrid{display:none}
+  .archlev.aperto .levgrid{margin-top:10px}}
+
 .pubfoot{display:flex;flex-direction:column;gap:10px}.legend.crediti{display:flex!important;flex-direction:column;gap:5px;max-width:min(610px,calc(100% - 580px))!important;font-family:var(--f-mono);font-size:9px;padding:6px 10px!important;line-height:1.35;gap:3px!important}.legend.crediti .pfrow{display:flex;flex-wrap:wrap;gap:1px 12px;font-size:9.7px!important}.legend.crediti .pfrow *{font-size:inherit!important}.legend.crediti a{color:var(--muted)}.legend.crediti a:hover{color:var(--ink)}.legend.crediti .pfcopy{margin:0;font-size:7.6px;line-height:1.4;color:var(--muted);max-width:none}@media (max-width:1100px){.legend.crediti{max-width:calc(100% - 560px)!important}.legend.crediti .pfcopy{display:none}}@media (min-width:761px){#pHome .thesis{max-height:calc(100% - 200px);overflow:auto}.legend.crediti{background:color-mix(in srgb, #0C1411 96%, transparent)!important}}@media (min-width:761px) and (max-width:1100px){#pHome .thesis{max-height:calc(100% - 150px)}}.pubfoot .pfrow{display:flex;flex-wrap:wrap;gap:6px 18px}.pubfoot .pfcopy{margin:0;max-width:78ch;font-size:12px;line-height:1.55;color:var(--muted)}
 .pubfoot a{color:var(--muted)}
 .pg{max-width:1180px;margin:0 auto}

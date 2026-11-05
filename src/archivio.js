@@ -42,3 +42,5 @@ function zeroRisultati(F){
 $("filtBtn").onclick = () => { const p = $("filtPanel"); p.hidden = !p.hidden; $("filtBtn").setAttribute("aria-expanded", String(!p.hidden)); };
 const _updateA = update;
 update = function(){ _updateA(); if (!$("pArchivio").hidden) renderAttivi(state.view === "elenco" ? SCHEDE.filter(matches) : [1]); };
+// sul telefono i livelli e le aree stanno chiusi sotto un pulsante, così le schede restano in vista
+if ($("archlevTog")) $("archlevTog").onclick = () => { const box = $("archlevTog").parentElement, ap = !box.classList.contains("aperto"); box.classList.toggle("aperto", ap); $("archlevTog").setAttribute("aria-expanded", String(ap)); $("archlevTog").textContent = "Dove si trova il problema: livelli e aree " + (ap ? "▴" : "▾"); };

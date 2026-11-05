@@ -185,7 +185,7 @@ allBtn.onclick = () => { state.macro = null; state.lev = null; if (state.disc ==
 const col0 = document.createElement("div"); col0.className = "lvcol lvall"; col0.appendChild(allBtn); areaChips.appendChild(col0);
 LIVELLI.forEach((l, i) => {
   const c = document.createElement("div"); c.className = "lvcol";
-  c.innerHTML = `<button class="lvh" data-lev="${i}" title="Tutte le schede del livello ${esc(l.n.toLowerCase())}"><span class="lvn">${i + 1}</span>${esc(l.n)} <span class="cnt" data-cl="${i}"></span></button>`;
+  c.innerHTML = `<button class="lvh" data-lev="${i}" title="Tutte le schede del livello ${esc(l.n.toLowerCase())}"><span class="lvn">${i + 1}</span>${esc(l.n)} <span class="cnt" data-cl="${i}"></span></button><p class="lvd">${esc(l.d)}</p>`;
   c.querySelector(".lvh").onclick = () => { state.lev = state.lev === i ? null : i; state.macro = null; state.shown = 60; update(); vaiAiRisultati(); };
   l.m.forEach(k => {
     const a = macroOf(k), b = document.createElement("button");
