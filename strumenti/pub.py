@@ -21,7 +21,8 @@ def carica(col):
         d = json.load(open(f)); d = d.get("data", d); d["id"] = os.path.basename(f)[:-5]; out.append(d)
     return out
 
-INTERNI = {"verificare", "stato", "approvata", "richiesta", "rivista", "notaRedazione", "pubblica", "notaFonte", "version"}
+# campi interni e campi di metodo (come si usa negli interventi): non escono mai dalla redazione
+INTERNI = {"verificare", "stato", "approvata", "richiesta", "rivista", "notaRedazione", "pubblica", "notaFonte", "version", "perche"}
 schede = [d for d in carica("schede") if d.get("stato") == "approvata" and d.get("pubblica") is not False]
 ids = {d["id"] for d in schede}
 for d in schede:
@@ -32,6 +33,8 @@ ponti = carica("ponti")
 for p in ponti:
     p["natura"] = [i for i in p.get("natura", []) if i in ids]; p["persone"] = [i for i in p.get("persone", []) if i in ids]
 ponti = [p for p in ponti if p["natura"] and p["persone"]]
+for p in ponti:
+    for k in ("domanda", "strumento"): p.pop(k, None)
 voc = [{"nome": v["nome"], "definizione": v.get("definizione", ""), "sinonimi": v.get("sinonimi", [])} for v in carica("vocabolario") if v.get("stato", "approvato") == "approvato" and v.get("nome")]
 usati = {a for d in schede for a in d.get("autoriIds", [])}
 autori = [a for a in carica("autori") if a["id"] in usati]
@@ -97,7 +100,14 @@ open(f"{OUT}/assets/logo.svg", "w").write(LOGO)
 
 # ---------- dati e codice della pagina principale ----------
 open(f"{OUT}/assets/dati.js", "w").write("window.__DATA=" + json.dumps({"schede": schede, "autori": autori, "ponti": ponti, "vocabolario": voc}, ensure_ascii=False, separators=(",", ":")) + ";")
-js = "\n".join(open(f"{C}/{f}").read() for f in ["app.js", "eco5.js", "ponti.js", "analogia.js", "tag.js", "archivio.js", "biblio.js", "auth.js", "boot-pub.js"])
+def senza_metodo(t):
+    # le domande guida e le due facce delle leve, e le domande dei temi, restano nell'area di lavoro
+    for blocco in ("const LEVE = [", "const TEMI = ["):
+        a = t.index(blocco); b = t.index("];", a)
+        parte = re.sub(r'\b(q|uno|sis):"(?:[^"\\]|\\.)*"', r'\1:""', t[a:b])
+        t = t[:a] + parte + t[b:]
+    return t
+js = "\n".join((senza_metodo(open(f"{C}/{f}").read()) if f == "app.js" else open(f"{C}/{f}").read()) for f in ["app.js", "eco5.js", "ponti.js", "analogia.js", "tag.js", "archivio.js", "biblio.js", "auth.js", "boot-pub.js"])
 open(f"{OUT}/assets/app.js", "w").write(js)
 
 ROBOTS = "" if LANCIO else '<meta name="robots" content="noindex, nofollow">'
@@ -165,7 +175,6 @@ for d in schede:
 <p class="lead2">{nomi_autori(d)}{" · " + E(d.get("anno")) if d.get("anno") else ""}</p>
 <p class="ref">{E(d.get("fonte"))}{f' · <a href="{E(fonte_link)}" rel="noopener" target="_blank">Apri la pubblicazione ↗</a>' if fonte_link else ""}</p>
 <div class="sect prose"><h2>Sinossi</h2><p>{E(d.get("sinossi"))}</p></div>
-{f'<div class="sect prose"><h2>Perché ci interessa</h2><p>{E(d.get("perche"))}</p></div>' if d.get("perche") else ""}
 {f'<div class="sect prose"><h2>Che cosa significa per un&#39;organizzazione</h2><p>{E(d.get("inAzienda"))}</p></div>' if d.get("inAzienda") else ""}
 <div class="cta"><a class="btn" href="/#scheda-{E(sid)}">Vedi i legami sulla mappa →</a><a class="btn ghost" href="/#archivio">Tutte le ricerche</a></div>
 </article><aside class="side">

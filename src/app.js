@@ -211,7 +211,7 @@ $("discSel").innerHTML = `<option value="">tutte</option>` + AREE.map(a => `<opt
 $("discSel").onchange = ev => { state.disc = ev.target.value; state.shown = 60; update(); };
 LEVE.forEach(l => {
   const b = document.createElement("button");
-  b.className = "chip"; b.dataset.leva = l.k; b.textContent = l.n; b.title = l.q; b.setAttribute("aria-pressed", "false");
+  b.className = "chip"; b.dataset.leva = l.k; b.textContent = l.n; if (canEdit && l.q) b.title = l.q; b.setAttribute("aria-pressed", "false");
   b.onclick = () => { state.leva = state.leva === l.k ? null : l.k; state.shown = 60; update(); vaiAiRisultati(); };
   $("levaChips").appendChild(b);
 });
@@ -382,6 +382,7 @@ function update(){
 
 // perché ci interessa: scritto a mano quando c'è, altrimenti ricostruito dai legami della scheda
 function perchePar(s){
+  if (!canEdit) return ""; // come si usa una ricerca negli interventi: solo nell'area di lavoro
   if (s.perche) return `<div class="sect perche"><h2>Perché ci interessa</h2><p>${esc(s.perche)}</p></div>`;
   const tm = temiDi(s.id), lv = s.leve.map(k => levaOf(k)).filter(Boolean), pp = (typeof PONTI === "undefined" ? [] : PONTI).filter(p => p.natura.includes(s.id) || p.persone.includes(s.id));
   if (!tm.length && !lv.length && !pp.length) return "";
@@ -649,7 +650,7 @@ function renderLeve(){
   LEVE.forEach((l, i) => {
     const n = SCHEDE.filter(s => s.leve.includes(l.k)).length;
     const d = document.createElement("article"); d.className = "leva";
-    d.innerHTML = `<p class="lvtop"><span class="n">Leva ${i + 1}</span><span class="lvorig">Legge: ${esc(l.legge)} · ${esc(l.da)}</span></p><h3>${esc(l.n)}</h3><p class="lvq">«${esc(l.q)}»</p><p>${esc(l.cosa)}</p><p class="lvseg"><b>Come si riconosce.</b> ${esc(l.segni)}</p><div class="lvfacce"><div><span class="ctl-label">Nella persona</span>${esc(l.uno)}</div><div><span class="ctl-label">Nel sistema</span>${esc(l.sis)}</div></div><p class="lvfonti">Fonti: ${esc(l.fonti)}</p>`;
+    d.innerHTML = `<p class="lvtop"><span class="n">Leva ${i + 1}</span><span class="lvorig">Legge: ${esc(l.legge)} · ${esc(l.da)}</span></p><h3>${esc(l.n)}</h3>${canEdit && l.q ? `<p class="lvq">«${esc(l.q)}»</p>` : ""}<p>${esc(l.cosa)}</p><p class="lvseg"><b>Come si riconosce.</b> ${esc(l.segni)}</p>${canEdit && l.uno ? `<div class="lvfacce"><div><span class="ctl-label">Nella persona</span>${esc(l.uno)}</div><div><span class="ctl-label">Nel sistema</span>${esc(l.sis)}</div></div>` : ""}<p class="lvfonti">Fonti: ${esc(l.fonti)}</p>`;
     const b = document.createElement("button"); b.className = "chip"; b.textContent = SCHEDE.length ? `${n} schede nell'archivio →` : "Apri nell'archivio →";
     b.onclick = () => apriArchivio({leva:l.k});
     d.appendChild(b); g.appendChild(d);

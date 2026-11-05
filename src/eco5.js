@@ -227,7 +227,7 @@ function focusEco(id){
     const sin = s.sinossi;
     const rel = ECO.L.data().filter(l => l.source.id === id || l.target.id === id).map(l => ({o:l.source.id === id ? l.target.id : l.source.id, l})).sort((a, b) => b.l.w - a.l.w);
     box.innerHTML = `<div class="ihead"><span class="eyebrow" style="display:inline-flex;gap:6px;align-items:center"><span class="dot" style="background:${mcol(s.macro)}"></span>${esc(macroOf(s.macro).n)}${isNat(s) ? " · natura" : ""}</span><button class="linkbtn" id="ecoClose">Chiudi ✕</button></div>
-      <h3>${esc(s.titolo)}</h3><p class="ra">${esc(s.autori)}${s.anno ? " · " + s.anno : ""}</p><p>${esc(sin)}</p>${s.perche ? `<div class="iperche"><span class="ctl-label">Perché ci interessa</span><p>${esc(s.perche)}</p></div>` : ""}
+      <h3>${esc(s.titolo)}</h3><p class="ra">${esc(s.autori)}${s.anno ? " · " + s.anno : ""}</p><p>${esc(sin)}</p>${canEdit && s.perche ? `<div class="iperche"><span class="ctl-label">Perché ci interessa</span><p>${esc(s.perche)}</p></div>` : ""}
       ${rel.length ? `<div><span class="ctl-label">Relazioni</span><ul class="rels">${rel.slice(0, 7).map(({o, l}) => `<li><button class="linkbtn" data-eco="${esc(o)}"><span class="dot" style="background:${mcol(byId[o].macro)}"></span>${esc(label(byId[o]))}</button> <small>${l.kind === "d" ? "citazione diretta" : "stessi temi: " + esc(l.temi.join(", "))}</small></li>`).join("")}</ul></div>` : ""}
       <div class="cloud">${s.microtemi.map(t => `<button class="topicbtn" data-eco="t:${esc(t)}">${esc(t)}</button>`).join("")}</div>
       ${temaBtns(temiDi(id))}

@@ -17,7 +17,7 @@ renderTema = function(t){
     <span class="pcap2">Al centro il tema. A sinistra gli studi su persone e organizzazioni, a destra i fenomeni naturali che mostrano lo stesso meccanismo.${tagliato ? " Il grafico mostra i dieci più collegati per parte: l'elenco completo è nell'archivio." : ""} Passa sopra un nome per vederlo sulla mappa, cliccalo per aprire la scheda.</span>`;
   drawRete(t, persone, natura);
   $("ponteTesto").innerHTML = `
-    <div class="tq"><span class="ctl-label">La domanda da cui partire</span><p>«${esc(t.q)}»</p><span class="tqh">È la prima domanda che un consulente del metodo pone in azienda per capire se il problema è questo: chiede di raccontare che cosa accade davvero, prima di cercare soluzioni.</span></div>
+    ${canEdit && t.q ? `<div class="tq"><span class="ctl-label">La domanda da cui partire · area di lavoro</span><p>«${esc(t.q)}»</p><span class="tqh">È la prima domanda da porre in azienda per capire se il problema è questo: chiede di raccontare che cosa accade davvero, prima di cercare soluzioni.</span></div>` : ""}
     ${pp.length ? `<h4 class="ph">Le analogie in natura su questo tema</h4><div class="pcards">${pp.map(p => `<a class="pcard" href="#analogia-${encodeURIComponent(p.k)}"><b>${esc(p.tema)}</b><span>${esc(primaFrase(p.meccanismo))}</span><span class="pgo">Apri l'analogia →</span></a>`).join("")}</div>`
       : `<p class="pgap">Per questo tema l'archivio non ha ancora un'analogia in natura documentata. Non è un difetto: non tutti i temi ne hanno una, e il metodo non ne inventa.</p>`}
     <div class="actions"><button class="btn" id="temaList">Leggi le ${all.length} schede nell'archivio →</button></div>
@@ -36,11 +36,11 @@ function renderAnalogia(k){
   const ids = [...p.natura, ...p.persone], lv = levaOf(p.leva);
   box.innerHTML = `<a class="back" href="${tema[0] ? "#tema-" + encodeURIComponent(tema[0].k) : "#"}">← ${tema[0] ? "Il tema «" + esc(tema[0].n) + "» sulla mappa" : "La mappa"}</a>
     <header class="anhead"><p class="eyebrow">Analogia in natura${lv ? " · leva " + esc(lv.n.toLowerCase()) : ""}</p><h2>${esc(p.tema)}</h2>
-      <div class="tq"><span class="ctl-label">La domanda da cui partire</span><p>«${esc(p.domanda)}»</p><span class="tqh">Il consulente la pone al gruppo per aprire il tema: invita a descrivere che cosa accade davvero in azienda, prima di cercare soluzioni. L'analogia arriva dopo, per far vedere il meccanismo.</span></div></header>
+      ${canEdit && p.domanda ? `<div class="tq"><span class="ctl-label">La domanda da cui partire · area di lavoro</span><p>«${esc(p.domanda)}»</p><span class="tqh">Si pone al gruppo per aprire il tema: invita a descrivere che cosa accade davvero in azienda, prima di cercare soluzioni. L'analogia arriva dopo, per far vedere il meccanismo.</span></div>` : ""}</header>
     <div class="angrid">
       <section class="ansec nat"><h3>Che cosa succede in natura</h3><p>${citaLinks(p.meccanismo, ids)}</p></section>
       <section class="ansec"><h3>Che cosa dice la ricerca sulle persone</h3><p>${citaLinks(p.ricerca, ids)}</p></section>
-      <section class="ansec adm"><h3>Come si usa in azienda</h3><p>${citaLinks(p.strumento, ids)}</p></section>
+      ${canEdit && p.strumento ? `<section class="ansec"><h3>Come si usa in azienda · area di lavoro</h3><p>${citaLinks(p.strumento, ids)}</p></section>` : ""}
       <section class="ansec lim"><h3>Dove l'analogia smette di valere</h3><p>${citaLinks(p.limite, ids)}</p></section>
     </div>
     <div class="anrefs">
