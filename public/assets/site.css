@@ -893,6 +893,44 @@ footer{border-top-color:var(--line);color:var(--muted);font-family:var(--f-mono)
 .zero li{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
 .zero .btn{align-self:flex-start}
 
+/* il pannello del tema: numeri prima del grafico, domanda spiegata, analogie in schede */
+.pcap{display:flex;flex-direction:column;gap:4px}
+.pstat2{font-size:13.5px;color:var(--ink)}
+.pstat2 b{font-family:var(--f-display);font-size:16px}
+.natc{color:var(--nat)!important}
+.pcap2{font-size:11.5px;color:var(--muted);line-height:1.5}
+.tq{border-left:3px solid var(--accent);padding:4px 0 4px 12px;margin:12px 0;display:flex;flex-direction:column;gap:4px}
+.tq p{font-size:15px;font-weight:600;margin:0}
+.tqh{font-size:12px;color:var(--muted);line-height:1.5}
+.pcards{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.pcard{display:flex;flex-direction:column;gap:3px;padding:10px 12px;border:1px solid var(--line);border-left:3px solid var(--nat);border-radius:10px;text-decoration:none;color:var(--ink);background:var(--surface2)}
+.pcard:hover{border-color:var(--nat)}
+.pcard span{font-size:12.5px;color:var(--muted)}
+.pcard .pgo{color:var(--accent);font-weight:600}
+/* la pagina dell'analogia */
+.anhead{margin:8px 0 18px;padding-bottom:14px;border-bottom:2px solid var(--ink)}
+.anhead h2{font-size:clamp(26px,3.4vw,40px);text-wrap:balance;margin:2px 0 6px}
+.angrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:14px}
+.ansec{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;min-width:0}
+.ansec.nat{border-top:3px solid var(--nat)}
+.ansec.lim{border-top:3px solid #E58C74}
+.ansec h3{font:500 11.5px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.ansec p{margin:0;font-size:15px;line-height:1.65;max-width:70ch}
+.anrefs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:22px;margin-top:26px}
+.anrefs h3{font-size:16px;margin:0 0 10px}
+.anlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.ancard{display:grid;grid-template-columns:12px minmax(0,1fr);gap:10px;align-items:start;font-size:14px}
+.ancard .dot{margin-top:6px}
+.ancard a{color:var(--ink);text-decoration:none}
+.ancard a:hover{color:var(--accent)}
+.ancard .rmeta{display:block;font-size:12px}
+.ancard .pext{font-size:12px;color:var(--link);margin-left:0}
+.antemi{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:24px}
+/* l'archivio diviso in due gruppi */
+.rgroup{grid-column:1 / -1;font:600 15px var(--f-display);margin:14px 0 2px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.rgroup:first-child{margin-top:0}
+.rgroup.nat{color:var(--nat);margin-top:26px}
+
 .pubfoot{display:flex;flex-wrap:wrap;gap:6px 18px}
 .pubfoot a{color:var(--muted)}
 .pg{max-width:1180px;margin:0 auto}

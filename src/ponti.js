@@ -94,7 +94,7 @@ function drawRete(t, persone, natura){
   const W = Math.max(280, $("ponteBody").clientWidth - 4 || 400), MAX = 10;
   const L = persone.slice(0, MAX), R = natura.slice(0, MAX);
   const two = W < 560, top = 30 + (two ? 13 : 0);
-  const row = 24, n = Math.max(L.length, R.length, 3), H = n * row + 50 + (two ? 13 : 0) + (persone.length > MAX || natura.length > MAX ? 14 : 0);
+  const row = 24, n = Math.max(L.length, R.length, 3), H = n * row + 50 + (two ? 13 : 0);
   svg.attr("viewBox", [0, 0, W, H]).attr("height", H);
   const xl = W * .3, xr = W * .7, xc = W / 2, yc = top + (n * row) / 2;
   const ys = (arr, i) => top + (n * row - arr.length * row) / 2 + i * row + row / 2;
@@ -103,8 +103,6 @@ function drawRete(t, persone, natura){
   if (two) { hl.append("tspan").attr("x", 0).text("Studi su persone,"); hl.append("tspan").attr("x", 0).attr("dy", 13).text(`organizzazioni e lavoro · ${persone.length}`); }
   else hl.text(`Studi su persone, organizzazioni e lavoro · ${persone.length}`);
   svg.append("text").attr("class", "nhead nat").attr("x", W).attr("y", 13).attr("text-anchor", "end").text(`Analogie in natura · ${natura.length}`);
-  if (persone.length > MAX) svg.append("text").attr("class", "nmore").attr("x", 0).attr("y", H - 4).text(`e altre ${persone.length - MAX}`);
-  if (natura.length > MAX) svg.append("text").attr("class", "nmore").attr("x", W).attr("y", H - 4).attr("text-anchor", "end").text(`e altre ${natura.length - MAX}`);
   const g = svg.append("g");
   [...nl, ...nr].forEach(a => g.append("path").attr("class", "ns " + (a.side > 0 ? "nsr" : "nsl")).attr("data-id", a.s.id).attr("d", `M${a.x},${a.y} C${(a.x + xc) / 2},${a.y} ${(a.x + xc) / 2},${yc} ${xc},${yc}`).style("stroke", a.side < 0 ? mcol(a.s.macro) : null));
   if (!R.length) g.append("text").attr("class", "nempty").attr("x", W).attr("y", yc).attr("dy", "0.35em").attr("text-anchor", "end").text("nessuna, per ora");

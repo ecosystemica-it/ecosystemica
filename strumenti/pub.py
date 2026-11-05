@@ -97,7 +97,7 @@ open(f"{OUT}/assets/logo.svg", "w").write(LOGO)
 
 # ---------- dati e codice della pagina principale ----------
 open(f"{OUT}/assets/dati.js", "w").write("window.__DATA=" + json.dumps({"schede": schede, "autori": autori, "ponti": ponti, "vocabolario": voc}, ensure_ascii=False, separators=(",", ":")) + ";")
-js = "\n".join(open(f"{C}/{f}").read() for f in ["app.js", "eco5.js", "ponti.js", "tag.js", "archivio.js", "biblio.js", "auth.js", "boot-pub.js"])
+js = "\n".join(open(f"{C}/{f}").read() for f in ["app.js", "eco5.js", "ponti.js", "analogia.js", "tag.js", "archivio.js", "biblio.js", "auth.js", "boot-pub.js"])
 open(f"{OUT}/assets/app.js", "w").write(js)
 
 ROBOTS = "" if LANCIO else '<meta name="robots" content="noindex, nofollow">'

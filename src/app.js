@@ -116,11 +116,11 @@ function affini(s){
 }
 
 // ---------- instradamento ----------
-const PAGES = ["pHome","pModello","pArchivio","pAutori","pScheda","pAutore","pBrief","pApprof","pInterventi","pAzienda","pRedazione","pBiblio"];
+const PAGES = ["pHome","pModello","pArchivio","pAutori","pScheda","pAutore","pBrief","pApprof","pAnalogia","pInterventi","pAzienda","pRedazione","pBiblio"];
 function show(p){
   PAGES.forEach(x => $(x).hidden = x !== p);
   document.body.classList.toggle("home", p === "pHome");
-  const nav = {pHome:"home", pModello:"modello", pArchivio:"archivio", pAutori:"autori", pScheda:"archivio", pAutore:"autori", pBrief:"brief", pApprof:"brief", pInterventi:"interventi", pAzienda:"interventi", pRedazione:"redazione", pBiblio:"biblioteca"}[p];
+  const nav = {pHome:"home", pModello:"modello", pArchivio:"archivio", pAutori:"autori", pScheda:"archivio", pAutore:"autori", pBrief:"brief", pApprof:"brief", pAnalogia:"home", pInterventi:"interventi", pAzienda:"interventi", pRedazione:"redazione", pBiblio:"biblioteca"}[p];
   document.querySelectorAll("[data-nav]").forEach(a => { if (a.dataset.nav === nav) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
 }
 // pagine riservate all'amministratore: per chiunque altro non esistono
@@ -150,7 +150,8 @@ function route(){
   if (h === "nuova") { show("pScheda"); openForm(null); window.scrollTo(0, 0); return; }
   if (h.startsWith("scheda-")) { show("pScheda"); renderScheda(h.slice(7)); window.scrollTo(0, 0); return; }
   if (h.startsWith("autore-")) { show("pAutore"); renderAutore(h.slice(7)); window.scrollTo(0, 0); return; }
-  if (h.startsWith("tema-") || h.startsWith("ponte-")) { show("pHome"); if (ECO.pending) { ECO.pending = false; scheduleEco(); } openTema(h.slice(h.indexOf("-") + 1), h.startsWith("ponte-")); window.scrollTo(0, 0); return; }
+  if (h.startsWith("analogia-") || h.startsWith("ponte-")) { show("pAnalogia"); renderAnalogia(h.slice(h.indexOf("-") + 1)); window.scrollTo(0, 0); return; }
+  if (h.startsWith("tema-")) { show("pHome"); if (ECO.pending) { ECO.pending = false; scheduleEco(); } openTema(h.slice(h.indexOf("-") + 1), h.startsWith("ponte-")); window.scrollTo(0, 0); return; }
   show("pHome");
   if (ECO.pending) { ECO.pending = false; scheduleEco(); }
   window.scrollTo(0, 0);
@@ -311,7 +312,11 @@ function renderResults(list){
   const box = $("results"); box.innerHTML = "";
   const sorters = {recenti:(a, b) => (b.creata || "").localeCompare(a.creata || "") || b.anno - a.anno, anno:(a, b) => a.anno - b.anno, titolo:(a, b) => a.titolo.localeCompare(b.titolo, "it")};
   list.sort(sorters[state.sort]);
-  list.slice(0, state.shown).forEach(s => {
+  // due gruppi distinti: prima gli studi su persone e organizzazioni, poi le evidenze dalla natura
+  const org = list.filter(s => !isNat(s)), nat = list.filter(isNat), due = org.length && nat.length;
+  const testa = (txt, cls) => { const h = document.createElement("h3"); h.className = "rgroup " + cls; h.textContent = txt; box.appendChild(h); };
+  const gruppi = due ? [[org, "Studi su persone, organizzazioni e lavoro · " + org.length, "org"], [nat, "Evidenze dalla natura · " + nat.length, "nat"]] : [[list, "", ""]];
+  gruppi.forEach(([g, titolo, cls]) => { if (titolo) testa(titolo, cls); g.slice(0, state.shown).forEach(s => {
     const a = document.createElement("a");
     a.className = "row"; a.href = "#scheda-" + encodeURIComponent(s.id); a.style.textDecoration = "none";
     a.innerHTML = `<span class="dot" style="background:${mcol(s.macro)}"></span>
@@ -319,8 +324,8 @@ function renderResults(list){
       <span class="rtags">${s.microtemi.slice(0, 5).map(t => `<span class="tg">${esc(t)}</span>`).join("")}</span></span>
       <span class="ry">${s.anno || ""}</span>`;
     box.appendChild(a);
-  });
-  $("moreBtn").hidden = list.length <= state.shown;
+  }); });
+  $("moreBtn").hidden = gruppi.every(([g]) => g.length <= state.shown);
 }
 function renderCloud(list){
   const counts = new Map();
