@@ -113,7 +113,7 @@ open(f"{OUT}/assets/app.js", "w").write(js)
 
 ROBOTS = "" if LANCIO else '<meta name="robots" content="noindex, nofollow">'
 BANNER = "" if LANCIO else '<div class="anteprima">Anteprima del sito: non ancora pubblicato</div>'
-FOOT = f'''<footer class="pubfoot"><div class="pfrow"><span>© {datetime.date.today().year} Ecosystemica · Centro studi sistemici sulle organizzazioni e il lavoro</span><span>Contatti: <a href="mailto:{CONTATTO}">{CONTATTO}</a></span><span><a href="/note-legali/">Note legali</a> · <a href="/privacy/">Privacy</a></span></div><p class="pfcopy">Le opere citate restano di proprietà dei rispettivi autori ed editori, che ne conservano tutti i diritti. Le schede sono sintesi originali della redazione: delle opere riportano soltanto brevi citazioni, a fini di studio, critica e discussione (articolo 70 della legge 633/1941), sempre con il riferimento completo alla fonte. Gli autori citati non sono affiliati al centro e non ne approvano i contenuti. Se ritieni che un contenuto leda i tuoi diritti, scrivi a {CONTATTO}: lo verifichiamo e, se serve, lo togliamo.</p></footer>'''
+FOOT = f'''<footer class="pubfoot"><div class="pfrow"><span>© {datetime.date.today().year} Ecosystemica · Centro Studi sistemici sulle organizzazioni e il lavoro</span><span>Contatti: <a href="mailto:{CONTATTO}">{CONTATTO}</a></span><span><a href="/note-legali/">Note legali</a> · <a href="/privacy/">Privacy</a></span></div><p class="pfcopy">Le opere citate restano di proprietà dei rispettivi autori ed editori, che ne conservano tutti i diritti. Le schede sono sintesi originali della redazione: delle opere riportano soltanto brevi citazioni, a fini di studio, critica e discussione (articolo 70 della legge 633/1941), sempre con il riferimento completo alla fonte. Gli autori citati non sono affiliati al Centro Studi e non ne approvano i contenuti. Se ritieni che un contenuto leda i tuoi diritti, scrivi a {CONTATTO}: lo verifichiamo e, se serve, lo togliamo.</p></footer>'''
 
 def testa(titolo, descr, path, extra=""):
     return f'''<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -130,14 +130,14 @@ body = re.sub(r"<footer>.*?</footer>", FOOT, body, flags=re.S)
 body = body.replace('<a href="#brief" class="adm">Dal brief al protocollo →</a>', "")
 body = re.sub(r'(<header class="top">.*?</nav>)', r'\1<div class="authnav" id="authNav"></div>', body, count=1, flags=re.S)
 body = body.replace(FOOT, '<dialog id="authDlg" class="authdlg" aria-label="Accesso"><div id="authBox"></div></dialog>' + FOOT)
-DESCR = "Centro studi sistemici sulle organizzazioni e il lavoro: un archivio ragionato di ricerche su persone, gruppi e organizzazioni, con le evidenze documentate dai sistemi naturali."
-open(f"{OUT}/index.html", "w").write(testa("Ecosystemica · Centro studi sistemici sulle organizzazioni e il lavoro", DESCR, "/") + "<body>" + BANNER + body +
+DESCR = "Centro Studi sistemici sulle organizzazioni e il lavoro: un archivio ragionato di ricerche su persone, gruppi e organizzazioni, con le evidenze documentate dai sistemi naturali."
+open(f"{OUT}/index.html", "w").write(testa("Ecosystemica · Centro Studi sistemici sulle organizzazioni e il lavoro", DESCR, "/") + "<body>" + BANNER + body +
     '<script src="/assets/d3.min.js"></script><script src="/assets/supabase.js"></script><script src="/assets/dati.js"></script><script src="/assets/app.js"></script></body></html>')
 
 # ---------- intestazione delle pagine statiche ----------
 NAV = [("/", "La mappa"), ("/#modello", "Il modello"), ("/#archivio", "L'archivio"), ("/#autori", "Gli autori"), ("/#biblioteca", "La mia biblioteca")]
 def header(att=""):
-    return f'''<div class="wrap"><header class="top"><a class="brand" href="/" aria-label="Ecosystemica, Centro studi sistemici sulle organizzazioni e il lavoro"><span class="logo" aria-hidden="true">{LOGO.replace('stroke="#C6F36B"', 'stroke="currentColor"').replace('fill="#C6F36B"', 'fill="currentColor"')}</span><span class="bname">Ecosystemica</span><span class="bsub">Centro studi sistemici sulle organizzazioni e il lavoro</span></a>
+    return f'''<div class="wrap"><header class="top"><a class="brand" href="/" aria-label="Ecosystemica, Centro Studi sistemici sulle organizzazioni e il lavoro"><span class="logo" aria-hidden="true">{LOGO.replace('stroke="#C6F36B"', 'stroke="currentColor"').replace('fill="#C6F36B"', 'fill="currentColor"')}</span><span class="bname">Ecosystemica</span><span class="bsub">Centro Studi sistemici sulle organizzazioni e il lavoro</span></a>
 <nav aria-label="Sezioni">{"".join(f'<a href="{h}"{" aria-current=\"page\"" if n == att else ""}>{n}</a>' for h, n in NAV)}</nav></header>'''
 
 MACRO = dict(re.findall(r'\{k:"(\w+)", n:"([^"]+)"', open(f"{C}/app.js").read().split("const MACRO = [")[1].split("];")[0]))
@@ -206,12 +206,12 @@ for a in autori:
 
 # ---------- pagine legali ----------
 T = TITOLARE
-CHI = f'Questo sito è pubblicato da {E(T["nome"])}, con sede in {E(T["sede"])}, partita IVA {E(T["piva"])}' if T["nome"] else "Questo sito è curato da Ecosystemica, centro studi sistemici sulle organizzazioni e il lavoro"
-TIT = f'{E(T["nome"])}, {E(T["sede"])}, partita IVA {E(T["piva"])}' if T["nome"] else "Ecosystemica, centro studi sistemici sulle organizzazioni e il lavoro"
+CHI = f'Questo sito è pubblicato da {E(T["nome"])}, con sede in {E(T["sede"])}, partita IVA {E(T["piva"])}' if T["nome"] else "Questo sito è curato da Ecosystemica, Centro Studi sistemici sulle organizzazioni e il lavoro"
+TIT = f'{E(T["nome"])}, {E(T["sede"])}, partita IVA {E(T["piva"])}' if T["nome"] else "Ecosystemica, Centro Studi sistemici sulle organizzazioni e il lavoro"
 LEG = {
 "note-legali": ("Note legali", f'''<h1>Note legali</h1>
-<p>{CHI}. Per scrivere al centro: <a href="mailto:{E(T["email"])}">{E(T["email"])}</a>.</p>
-<h2>I contenuti</h2><p>Le schede dell'archivio sono sintesi originali, scritte in italiano dalla redazione di Ecosystemica a partire dalle pubblicazioni citate, di cui riportano sempre il riferimento completo e, quando esiste, il collegamento alla fonte. Le opere citate restano dei loro autori ed editori. Gli autori citati non sono affiliati al centro e non ne approvano i contenuti.</p>
+<p>{CHI}. Per scrivere al Centro Studi: <a href="mailto:{E(T["email"])}">{E(T["email"])}</a>.</p>
+<h2>I contenuti</h2><p>Le schede dell'archivio sono sintesi originali, scritte in italiano dalla redazione di Ecosystemica a partire dalle pubblicazioni citate, di cui riportano sempre il riferimento completo e, quando esiste, il collegamento alla fonte. Le opere citate restano dei loro autori ed editori. Gli autori citati non sono affiliati al Centro Studi e non ne approvano i contenuti.</p>
 <p>Se ritieni che un contenuto leda i tuoi diritti d'autore, scrivi all'indirizzo indicato sopra indicando l'opera e la pagina: verifichiamo ogni segnalazione e, se è fondata, togliamo o correggiamo il contenuto.</p>
 <p>I testi originali del sito appartengono a Ecosystemica. Se ne possono citare brevi passaggi indicando la fonte e il collegamento alla pagina.</p>
 <h2>Segnalazioni</h2><p>Se trovi un errore in una scheda, una fonte da correggere o un contenuto che ritieni lesivo dei tuoi diritti, scrivi all'indirizzo indicato sopra: la redazione verifica ogni segnalazione.</p>'''),

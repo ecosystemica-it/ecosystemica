@@ -1419,7 +1419,7 @@ const errIt = e => { const m = String((e && e.message) || e || ""); const t = ER
 
 function formAuth(){
   const m = AUTH.modo;
-  const titolo = {accedi:"Accedi", iscriviti:"Iscriviti al centro", recupero:"Recupera la password", nuova:"Scegli una nuova password"}[m];
+  const titolo = {accedi:"Accedi", iscriviti:"Iscriviti al Centro Studi", recupero:"Recupera la password", nuova:"Scegli una nuova password"}[m];
   const campi = m === "accedi" ? `<label>Email<input id="au-email" type="email" autocomplete="email" required></label><label>Password<input id="au-pw" type="password" autocomplete="current-password" required></label>`
     : m === "iscriviti" ? `<label>Nome e cognome<input id="au-nome" autocomplete="name"></label><label>Email<input id="au-email" type="email" autocomplete="email" required></label><label>Password<input id="au-pw" type="password" autocomplete="new-password" minlength="8" required><span class="bibhelp">Almeno 8 caratteri.</span></label>
       <label class="aucheck"><input id="au-ok" type="checkbox" required> Ho letto l'<a href="/privacy/" target="_blank" rel="noopener">informativa sulla privacy</a> e accetto che i miei dati siano trattati per gestire l'account e la biblioteca.</label>`
