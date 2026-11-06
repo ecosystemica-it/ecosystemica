@@ -425,7 +425,7 @@ function renderScheda(id){
       </div></div>
       <div class="box"><h3>Autori</h3><div class="extlinks">${s.authors.map(aid => `<a href="#autore-${encodeURIComponent(aid)}">${esc(AUT.get(aid).nome)}</a>`).join("")}</div></div>
       ${temiDi(s.id).length ? `<div class="box pbox"><h3>Temi</h3><div class="extlinks">${temiDi(s.id).map(t => `<a href="#tema-${encodeURIComponent(t.k)}">${esc(t.n)}${pontiDelTema(t.k).length ? ' <span class="pdot" title="con analogie in natura"></span>' : ""} →</a>`).join("")}</div></div>` : ""}
-      ${s.leve.length ? `<div class="box"><h3>Leve</h3><div class="minichips">${s.leve.map(k => `<span class="minichip">${esc(levaOf(k).n)}</span>`).join("")}</div></div>` : ""}
+      ${canEdit && s.leve.length ? `<div class="box"><h3>Leve</h3><div class="minichips">${s.leve.map(k => `<span class="minichip">${esc(levaOf(k).n)}</span>`).join("")}</div></div>` : ""}
       ${links.length ? `<div class="box"><h3>Collegamenti dichiarati</h3><div class="extlinks">${links.map(m => `<a href="#scheda-${encodeURIComponent(m.id)}" style="font-weight:400">${esc(label(m))}, ${m.anno || ""}</a>`).join("")}</div></div>` : ""}
       ${canEdit ? `<div class="box actions"><button class="btn ghost" id="editBtn">Modifica</button><button class="btn danger" id="delBtn">Elimina</button></div>` : ""}
     </aside>
@@ -1123,7 +1123,7 @@ function renderAnalogia(k){
   const tema = p.temi.map(temaOf).filter(Boolean), nat = p.natura.map(i => byId[i]).filter(Boolean), per = p.persone.map(i => byId[i]).filter(Boolean);
   const ids = [...p.natura, ...p.persone], lv = levaOf(p.leva);
   box.innerHTML = `<a class="back" href="${tema[0] ? "#tema-" + encodeURIComponent(tema[0].k) : "#"}">← ${tema[0] ? "Il tema «" + esc(tema[0].n) + "» sulla mappa" : "La mappa"}</a>
-    <header class="anhead"><p class="eyebrow">Analogia in natura${lv ? " · leva " + esc(lv.n.toLowerCase()) : ""}</p><h2>${esc(p.tema)}</h2>
+    <header class="anhead"><p class="eyebrow">Analogia in natura${canEdit && lv ? " · leva " + esc(lv.n.toLowerCase()) : ""}</p><h2>${esc(p.tema)}</h2>
       ${canEdit && p.domanda ? `<div class="tq"><span class="ctl-label">La domanda da cui partire · area di lavoro</span><p>«${esc(p.domanda)}»</p><span class="tqh">Si pone al gruppo per aprire il tema: invita a descrivere che cosa accade davvero in azienda, prima di cercare soluzioni. L'analogia arriva dopo, per far vedere il meccanismo.</span></div>` : ""}</header>
     <div class="angrid">
       <section class="ansec nat"><h3>Che cosa succede in natura</h3><p>${citaLinks(p.meccanismo, ids)}</p></section>

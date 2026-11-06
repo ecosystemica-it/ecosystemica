@@ -425,7 +425,7 @@ function renderScheda(id){
       </div></div>
       <div class="box"><h3>Autori</h3><div class="extlinks">${s.authors.map(aid => `<a href="#autore-${encodeURIComponent(aid)}">${esc(AUT.get(aid).nome)}</a>`).join("")}</div></div>
       ${temiDi(s.id).length ? `<div class="box pbox"><h3>Temi</h3><div class="extlinks">${temiDi(s.id).map(t => `<a href="#tema-${encodeURIComponent(t.k)}">${esc(t.n)}${pontiDelTema(t.k).length ? ' <span class="pdot" title="con analogie in natura"></span>' : ""} →</a>`).join("")}</div></div>` : ""}
-      ${s.leve.length ? `<div class="box"><h3>Leve</h3><div class="minichips">${s.leve.map(k => `<span class="minichip">${esc(levaOf(k).n)}</span>`).join("")}</div></div>` : ""}
+      ${canEdit && s.leve.length ? `<div class="box"><h3>Leve</h3><div class="minichips">${s.leve.map(k => `<span class="minichip">${esc(levaOf(k).n)}</span>`).join("")}</div></div>` : ""}
       ${links.length ? `<div class="box"><h3>Collegamenti dichiarati</h3><div class="extlinks">${links.map(m => `<a href="#scheda-${encodeURIComponent(m.id)}" style="font-weight:400">${esc(label(m))}, ${m.anno || ""}</a>`).join("")}</div></div>` : ""}
       ${canEdit ? `<div class="box actions"><button class="btn ghost" id="editBtn">Modifica</button><button class="btn danger" id="delBtn">Elimina</button></div>` : ""}
     </aside>

@@ -126,9 +126,13 @@ def testa(titolo, descr, path, extra=""):
 
 # la pagina principale riusa l'interfaccia della redazione, senza le parti riservate
 body = open(f"{C}/m3body.html").read()
-for pid in ["pBrief", "pApprof", "pInterventi", "pAzienda", "pRedazione"]:
+for pid in ["pBrief", "pApprof", "pInterventi", "pAzienda", "pRedazione", "pModello"]:
     body = re.sub(rf'<main id="{pid}"[^>]*>.*?</main>', f'<main id="{pid}" class="page" hidden></main>', body, flags=re.S)
 body = re.sub(r'<a href="#[a-z]+" data-nav="(brief|interventi|redazione)" class="adm">[^<]*</a>', "", body)
+# il modello resta nell'area di lavoro: via la voce di menu, i rimandi e il filtro per leva
+body = re.sub(r'<a href="#modello" data-nav="modello">[^<]*</a>', "", body)
+body = re.sub(r'<a( class="btn")? href="#modello">[^<]*</a>', "", body)
+body = re.sub(r'<p class="filt-h">Leva d\'intervento.*?</div></div>\s*', '<div class="chips" id="levaChips" hidden></div>', body, count=1, flags=re.S)
 body = re.sub(r"<footer>.*?</footer>", FOOT, body, flags=re.S)
 # in home, al posto della legenda della mappa: crediti, contatti e nota sui diritti
 CREDITI = FOOT.replace('<footer class="pubfoot">', '<div class="ov legend crediti">').replace("</footer>", "</div>")
@@ -141,7 +145,7 @@ open(f"{OUT}/index.html", "w").write(testa("Ecosystemica · Centro Studi sistemi
     f'<script src="/assets/d3.min.js"></script><script src="/assets/supabase.js"></script><script src="/assets/dati.js?v={V["dati.js"]}"></script><script src="/assets/app.js?v={V["app.js"]}"></script></body></html>')
 
 # ---------- intestazione delle pagine statiche ----------
-NAV = [("/", "La mappa"), ("/#modello", "Il modello"), ("/#archivio", "L'archivio"), ("/#autori", "Gli autori"), ("/#biblioteca", "La mia biblioteca")]
+NAV = [("/", "La mappa"), ("/#archivio", "L'archivio"), ("/#autori", "Gli autori"), ("/#biblioteca", "La mia biblioteca")]
 def header(att=""):
     return f'''<div class="wrap"><header class="top"><a class="brand" href="/" aria-label="Ecosystemica, Centro Studi sistemici sulle organizzazioni e il lavoro"><span class="logo" aria-hidden="true">{LOGO.replace('stroke="#C6F36B"', 'stroke="currentColor"').replace('fill="#C6F36B"', 'fill="currentColor"')}</span><span class="bname">Ecosystemica</span><span class="bsub">Centro Studi sistemici sulle organizzazioni e il lavoro</span></a>
 <nav aria-label="Sezioni">{"".join(f'<a href="{h}"{" aria-current=\"page\"" if n == att else ""}>{n}</a>' for h, n in NAV)}</nav></header>'''
@@ -186,7 +190,7 @@ for d in schede:
 <div class="cta"><a class="btn" href="/#scheda-{E(sid)}">Vedi i legami sulla mappa →</a><a class="btn ghost" href="/#archivio">Tutte le ricerche</a></div>
 </article><aside class="side">
 {"".join(f'<div class="box"><h3>{t}</h3><div class="tagchips">{"".join(f"<span>{E(v)}</span>" for v in vs)}</div></div>' for t, vs in tags if vs)}
-{f'<div class="box"><h3>Leve</h3><div class="tagchips">{"".join(f"<span>{E(LEVE.get(l, l))}</span>" for l in d.get("leve", []))}</div></div>' if d.get("leve") else ""}
+
 {f'<div class="box"><h3>Collegamenti</h3><ul class="colleg">{"".join(f"<li><a href=\"/schede/{c["id"]}/\">{E(etichetta(c))}, {E(c.get("anno"))}</a></li>" for c in colleg)}</ul></div>' if colleg else ""}
 </aside></div></main>{FOOT}</div>'''
     os.makedirs(OUT + path)

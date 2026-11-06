@@ -35,7 +35,7 @@ function renderAnalogia(k){
   const tema = p.temi.map(temaOf).filter(Boolean), nat = p.natura.map(i => byId[i]).filter(Boolean), per = p.persone.map(i => byId[i]).filter(Boolean);
   const ids = [...p.natura, ...p.persone], lv = levaOf(p.leva);
   box.innerHTML = `<a class="back" href="${tema[0] ? "#tema-" + encodeURIComponent(tema[0].k) : "#"}">← ${tema[0] ? "Il tema «" + esc(tema[0].n) + "» sulla mappa" : "La mappa"}</a>
-    <header class="anhead"><p class="eyebrow">Analogia in natura${lv ? " · leva " + esc(lv.n.toLowerCase()) : ""}</p><h2>${esc(p.tema)}</h2>
+    <header class="anhead"><p class="eyebrow">Analogia in natura${canEdit && lv ? " · leva " + esc(lv.n.toLowerCase()) : ""}</p><h2>${esc(p.tema)}</h2>
       ${canEdit && p.domanda ? `<div class="tq"><span class="ctl-label">La domanda da cui partire · area di lavoro</span><p>«${esc(p.domanda)}»</p><span class="tqh">Si pone al gruppo per aprire il tema: invita a descrivere che cosa accade davvero in azienda, prima di cercare soluzioni. L'analogia arriva dopo, per far vedere il meccanismo.</span></div>` : ""}</header>
     <div class="angrid">
       <section class="ansec nat"><h3>Che cosa succede in natura</h3><p>${citaLinks(p.meccanismo, ids)}</p></section>
