@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 """Costruisce il sito pubblico di Ecosystemica dalla redazione privata.
 Uso: python3 pub.py <cartella export> <cartella public> [--lancio]
-Senza --lancio il sito è in anteprima: noindex e robots.txt chiuso."""
+Il sito è aperto ai motori di ricerca (lanciato il 6 novembre 2026). Con --anteprima torna chiuso: noindex e robots.txt che vieta l'accesso."""
 import json, glob, os, re, sys, shutil, html, datetime
 
 S = os.path.dirname(os.path.abspath(__file__)) + "/.."
 C = S + "/src"
 EXP, OUT = sys.argv[1], sys.argv[2]
-LANCIO = "--lancio" in sys.argv
+LANCIO = "--anteprima" not in sys.argv
 BASE = "https://ecosystemica.it"
 OGGI = datetime.date.today().isoformat()
 # dati del titolare: per ora solo il contatto; ragione sociale, sede e partita IVA si aggiungono quando ci saranno
 CONTATTO = "hello@ecosystemica.it"
-TITOLARE = {"nome": "", "piva": "", "sede": "", "email": CONTATTO}
+TITOLARE = {"nome": "Dott. Stefano Luca Tosoni", "piva": "", "sede": "", "email": CONTATTO}
 
 E = lambda s: html.escape(str(s or ""), quote=True)
 
@@ -218,8 +218,11 @@ for a in autori:
 
 # ---------- pagine legali ----------
 T = TITOLARE
-CHI = f'Questo sito è pubblicato da {E(T["nome"])}, con sede in {E(T["sede"])}, partita IVA {E(T["piva"])}' if T["nome"] else "Questo sito è curato da Ecosystemica, Centro Studi sistemici sulle organizzazioni e il lavoro"
-TIT = f'{E(T["nome"])}, {E(T["sede"])}, partita IVA {E(T["piva"])}' if T["nome"] else "Ecosystemica, Centro Studi sistemici sulle organizzazioni e il lavoro"
+def _chi(T):
+    parti = [E(T["nome"])] + ([f'con sede in {E(T["sede"])}'] if T["sede"] else []) + ([f'partita IVA {E(T["piva"])}'] if T["piva"] else [])
+    return ", ".join(parti)
+CHI = f'Questo sito è curato e pubblicato da {_chi(T)}, per Ecosystemica, Centro Studi sistemici sulle organizzazioni e il lavoro' if T["nome"] else "Questo sito è curato da Ecosystemica, Centro Studi sistemici sulle organizzazioni e il lavoro"
+TIT = _chi(T) if T["nome"] else "Ecosystemica, Centro Studi sistemici sulle organizzazioni e il lavoro"
 LEG = {
 "note-legali": ("Note legali", f'''<h1>Note legali</h1>
 <p>{CHI}. Per scrivere al Centro Studi: <a href="mailto:{E(T["email"])}">{E(T["email"])}</a>.</p>
@@ -232,7 +235,7 @@ LEG = {
 <h2>Titolare del trattamento</h2><p>{TIT}. Contatto: <a href="mailto:{E(T["email"])}">{E(T["email"])}</a>.</p>
 <h2>Che cosa raccogliamo</h2><p>Il sito si consulta liberamente, senza registrazione. Non usa cookie di profilazione né strumenti di statistica che tracciano i visitatori, e i caratteri tipografici sono ospitati sul sito stesso, senza richieste a servizi esterni.</p>
 <h2>Account e biblioteca personale</h2><p>Chi si iscrive ci affida l'indirizzo email, il nome se lo indica, una password e ciò che salva nella propria biblioteca: schede, autori, ricerche, note e raccolte. Usiamo questi dati solo per gestire l'account e offrire la biblioteca, cioè per eseguire il servizio richiesto (articolo 6, paragrafo 1, lettera b del Regolamento). La password non è mai conservata in chiaro.</p>
-<p>Account e biblioteca sono gestiti da Supabase, Inc., che opera come responsabile del trattamento con server nell'Unione europea (Francoforte). Le email di servizio, come la conferma dell'iscrizione e il recupero della password, partono attraverso lo stesso fornitore. Per mantenerti collegato il sito conserva nella memoria del tuo browser un codice di accesso, strettamente necessario al servizio.</p>
+<p>Account e biblioteca sono gestiti da Supabase, Inc., che opera come responsabile del trattamento; se i dati sono conservati fuori dall'Unione europea, il trasferimento avviene sulla base delle garanzie previste dal Regolamento, indicate nell'accordo sul trattamento dei dati del fornitore. Le email di servizio, come la conferma dell'iscrizione e il recupero della password, partono dal server di posta del dominio ecosystemica.it, gestito da Aruba S.p.A. Per mantenerti collegato il sito conserva nella memoria del tuo browser un codice di accesso, strettamente necessario al servizio.</p>
 <p>I dati restano finché l'account è attivo. Per cancellare l'account e tutto ciò che hai salvato basta scrivere all'indirizzo del titolare: la cancellazione avviene entro trenta giorni.</p>
 <p>Come ogni sito web, il servizio di hosting registra in forma tecnica alcune informazioni sulle richieste ricevute, come l'indirizzo IP, la data e l'ora e la pagina richiesta. Servono solo a far funzionare il sito e a proteggerlo da abusi, e sono conservate dal fornitore per il tempo previsto dalle sue condizioni.</p>
 <h2>Fornitore di hosting</h2><p>Il sito è ospitato da Cloudflare, Inc., che tratta i dati tecnici come responsabile del trattamento. Cloudflare ha sede negli Stati Uniti: il trasferimento dei dati avviene sulla base delle garanzie previste dal Regolamento, indicate nell'accordo sul trattamento dei dati del fornitore.</p>
