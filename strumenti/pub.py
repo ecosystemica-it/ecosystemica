@@ -110,6 +110,9 @@ def senza_metodo(t):
     return t
 js = "\n".join((senza_metodo(open(f"{C}/{f}").read()) if f == "app.js" else open(f"{C}/{f}").read()) for f in ["app.js", "eco5.js", "ponti.js", "analogia.js", "tag.js", "archivio.js", "mobile.js", "biblio.js", "auth.js", "boot-pub.js"])
 open(f"{OUT}/assets/app.js", "w").write(js)
+import hashlib
+def impronta(nome): return hashlib.sha1(open(f"{OUT}/assets/{nome}", "rb").read()).hexdigest()[:10]
+V = {n: impronta(n) for n in ["site.css", "app.js", "dati.js"]}
 
 ROBOTS = "" if LANCIO else '<meta name="robots" content="noindex, nofollow">'
 BANNER = ""  # la fascia «anteprima» è stata tolta su richiesta; il noindex resta finché non si lancia
@@ -119,7 +122,7 @@ def testa(titolo, descr, path, extra=""):
     return f'''<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{E(titolo)}</title><meta name="description" content="{E(descr)}"><link rel="canonical" href="{BASE}{path}">{ROBOTS}
 <meta property="og:title" content="{E(titolo)}"><meta property="og:description" content="{E(descr)}"><meta property="og:url" content="{BASE}{path}"><meta property="og:type" content="website"><meta property="og:locale" content="it_IT">
-<link rel="icon" href="/assets/logo.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/site.css">{extra}</head>'''
+<link rel="icon" href="/assets/logo.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/site.css?v={V["site.css"]}">{extra}</head>'''
 
 # la pagina principale riusa l'interfaccia della redazione, senza le parti riservate
 body = open(f"{C}/m3body.html").read()
@@ -135,7 +138,7 @@ body = re.sub(r'(<header class="top">.*?</nav>)', r'\1<div class="authnav" id="a
 body = body.replace(FOOT, '<dialog id="authDlg" class="authdlg" aria-label="Accesso"><div id="authBox"></div></dialog>' + FOOT)
 DESCR = "Centro Studi sistemici sulle organizzazioni e il lavoro: un archivio ragionato di ricerche su persone, gruppi e organizzazioni, con le evidenze documentate dai sistemi naturali."
 open(f"{OUT}/index.html", "w").write(testa("Ecosystemica · Centro Studi sistemici sulle organizzazioni e il lavoro", DESCR, "/") + "<body>" + BANNER + body +
-    '<script src="/assets/d3.min.js"></script><script src="/assets/supabase.js"></script><script src="/assets/dati.js"></script><script src="/assets/app.js"></script></body></html>')
+    f'<script src="/assets/d3.min.js"></script><script src="/assets/supabase.js"></script><script src="/assets/dati.js?v={V["dati.js"]}"></script><script src="/assets/app.js?v={V["app.js"]}"></script></body></html>')
 
 # ---------- intestazione delle pagine statiche ----------
 NAV = [("/", "La mappa"), ("/#modello", "Il modello"), ("/#archivio", "L'archivio"), ("/#autori", "Gli autori"), ("/#biblioteca", "La mia biblioteca")]

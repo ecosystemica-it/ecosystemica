@@ -6,7 +6,7 @@
 .top nav{flex-wrap:nowrap;gap:18px;overflow-x:auto}
 .top nav a{white-space:nowrap;font-weight:600;font-size:14px}
 .top nav a[aria-current="page"]{color:var(--accent);text-decoration:underline;text-underline-offset:6px}
-body.home{overflow:hidden}
+@media (min-width:761px){body.home{overflow:hidden}}
 body.home .wrap{max-width:none}
 body.home footer{display:none}
 #pHome{position:relative;height:calc(100svh - 56px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));margin-inline:calc(-1 * max(16px, env(safe-area-inset-left, 0px))) calc(-1 * max(16px, env(safe-area-inset-right, 0px)))}
