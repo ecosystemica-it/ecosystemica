@@ -249,4 +249,7 @@ footer{border-top-color:var(--line);color:var(--muted);font-family:var(--f-mono)
   .archlevtog{display:block;width:100%;text-align:left;font:600 14px var(--f-ui);color:#0C1411;background:var(--accent);border:1px solid var(--accent);border-radius:10px;padding:11px 14px;cursor:pointer}
   .archlev:not(.aperto) .levgrid{display:none}
   .archlev.aperto .levgrid{margin-top:10px}}
+
+/* telefono: la home scorre (sul computer resta bloccata sulla mappa a tutto schermo) */
+@media (max-width:760px){body.home{overflow:visible!important}body.home footer{display:block!important}body.home footer.pubfoot{display:flex!important}#eco{touch-action:pan-y!important}}
 </style>
