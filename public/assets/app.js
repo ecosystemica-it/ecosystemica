@@ -958,9 +958,9 @@ function setThesis(min, salva){
 }
 $("thesisToggle").onclick = () => setThesis(!$("thesis").classList.contains("min"), true);
 // la presentazione si può chiudere: i testi restano nella pagina Chi siamo
-function chiudiThesis(salva){ $("thesis").hidden = true; if (salva) { try { localStorage.setItem("thesisChiusa", "1"); } catch (e) {} } ECO.fit && ECO.fit(); }
+function chiudiThesis(salva){ $("thesis").hidden = true; if (salva) { try { sessionStorage.setItem("thesisChiusa", "1"); } catch (e) {} } ECO.fit && ECO.fit(); }
 $("thesisClose").onclick = () => chiudiThesis(true);
-(() => { let v = null; try { v = localStorage.getItem("thesisChiusa"); } catch (e) {} if (v === "1") chiudiThesis(false); })();
+(() => { let v = null; try { v = sessionStorage.getItem("thesisChiusa"); } catch (e) {} if (v === "1") chiudiThesis(false); })();
 document.querySelector("#thesis h1").onclick = () => { if ($("thesis").classList.contains("min")) setThesis(false, true); };
 (() => { let v = null; try { v = localStorage.getItem("thesisMin"); } catch (e) {} setThesis(v === "1" || (v === null && window.innerWidth < 560), false); })();
 

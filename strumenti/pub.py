@@ -50,7 +50,7 @@ os.makedirs(OUT + "/assets/fonts")
 # ---------- caratteri ospitati sul sito ----------
 FS = C + "/fonts"
 ff = []
-for fam, pkg, pesi in [("Space Grotesk", "space-grotesk", [500, 600, 700]), ("Inter", "inter", [400, 500, 600, 700]), ("IBM Plex Mono", "ibm-plex-mono", [400, 500])]:
+for fam, pkg, pesi in [("Inter", "inter", [400, 500, 600, 700, 800]), ("DM Mono", "dm-mono", [400, 500])]:
     for w in pesi:
         n = f"{pkg}-latin-{w}-normal.woff2"; shutil.copy(f"{FS}/{n}", f"{OUT}/assets/fonts/{n}")
         ff.append(f'@font-face{{font-family:"{fam}";font-style:normal;font-weight:{w};font-display:swap;src:url(/assets/fonts/{n}) format("woff2")}}')
