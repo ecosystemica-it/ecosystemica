@@ -119,7 +119,7 @@ function affini(s){
 const PAGES = ["pHome","pChiSiamo","pModello","pArchivio","pAutori","pScheda","pAutore","pBrief","pApprof","pAnalogia","pInterventi","pAzienda","pRedazione","pBiblio"];
 function show(p){
   PAGES.forEach(x => $(x).hidden = x !== p);
-  document.body.classList.toggle("home", p === "pHome");
+  document.body.classList.toggle("home", p === "pHome"); document.body.classList.toggle("pag-chisiamo", p === "pChiSiamo");
   const nav = {pHome:"home", pChiSiamo:"chi-siamo", pModello:"modello", pArchivio:"archivio", pAutori:"autori", pScheda:"archivio", pAutore:"autori", pBrief:"brief", pApprof:"brief", pAnalogia:"home", pInterventi:"interventi", pAzienda:"interventi", pRedazione:"redazione", pBiblio:"biblioteca"}[p];
   document.querySelectorAll("[data-nav]").forEach(a => { if (a.dataset.nav === nav) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
 }
