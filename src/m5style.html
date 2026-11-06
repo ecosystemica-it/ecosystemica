@@ -252,4 +252,18 @@ footer{border-top-color:var(--line);color:var(--muted);font-family:var(--f-mono)
 
 /* telefono: la home scorre (sul computer resta bloccata sulla mappa a tutto schermo) */
 @media (max-width:760px){body.home{overflow:visible!important}body.home footer{display:block!important}body.home footer.pubfoot{display:flex!important}#eco{touch-action:pan-y!important}}
+
+/* telefono: scheda della mappa opaca e mappa a schermo intero */
+.mapfull,.maphint{display:none}
+@media (max-width:760px){
+  .ecoinfo{background:var(--surface)!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;box-shadow:0 -8px 30px rgba(0,0,0,.5)}
+  .mapfull{display:block;position:absolute;left:10px;right:10px;bottom:10px;z-index:3;font:600 14px var(--f-ui);color:#0C1411;background:#C6F36B;border:1px solid #9FCC45;border-radius:10px;padding:11px 14px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  body.mappafull{overflow:hidden!important}
+  body.mappafull #pHome #ecoWrap{position:fixed!important;inset:0!important;height:auto!important;z-index:40;border-radius:0!important;margin:0!important}
+  body.mappafull #eco{touch-action:none!important}
+  body.mappafull #eco .ndl{display:inline}
+  body.mappafull .mapfull{top:calc(10px + env(safe-area-inset-top, 0px));bottom:auto;left:auto;right:10px;width:auto}
+  body.mappafull .maphint{display:block;position:absolute;left:12px;bottom:calc(12px + env(safe-area-inset-bottom, 0px));right:12px;margin:0;font:500 12px var(--f-ui);color:#3A4A42;text-align:center;background:rgba(250,250,246,.9);border-radius:8px;padding:6px 8px}
+  body.mappafull .ecoinfo{z-index:50}
+}
 </style>

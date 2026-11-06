@@ -822,7 +822,8 @@ function buildEco(){
   // gli angoli vuoti attorno al cerchio possono stare sotto il testo e i comandi
   ECO.fit = () => {
     const wr = wrap.getBoundingClientRect(), Wn = wr.width || W, Hn = wr.height || H;
-    const els = [$("thesis"), $("ponte"), $("ecoStats"), ...document.querySelectorAll("#pHome .tools, #pHome .legend.ov")];
+    // a schermo intero (telefono) nessun riquadro sta sopra la mappa
+    const els = document.body.classList.contains("mappafull") ? [$("mapFull")] : [$("thesis"), $("ponte"), $("ecoStats"), ...document.querySelectorAll("#pHome .tools, #pHome .legend.ov")];
     const rects = els.filter(el => el && !el.hidden && el.getClientRects().length).map(el => { const r = el.getBoundingClientRect(); return [r.left - wr.left - 6, r.top - wr.top - 6, r.right - wr.left + 6, r.bottom - wr.top + 6]; }).filter(r => r[2] - r[0] > 12 && r[3] - r[1] > 12);
     const ok = (cx, cy, r) => rects.every(([x0, y0, x1, y1]) => { const dx = Math.max(x0 - cx, 0, cx - x1), dy = Math.max(y0 - cy, 0, cy - y1); return dx * dx + dy * dy >= r * r; });
     let best = null;
@@ -1252,6 +1253,24 @@ rebuild = function(){ const r = _rebuildM.apply(this, arguments); renderMobileTe
 const _openTemaM = openTema;
 openTema = function(k, isPonte){ const r = _openTemaM.apply(this, arguments); if (MOBILE.matches && k) window.scrollTo(0, 0); return r; };
 renderMobileTemi();
+
+// telefono: la mappa si apre a schermo intero, dove si sposta con un dito e si ingrandisce con due
+(() => {
+  const wrap = $("ecoWrap"); if (!wrap || $("mapFull")) return;
+  const b = document.createElement("button"); b.id = "mapFull"; b.className = "mapfull"; b.type = "button";
+  const hint = document.createElement("p"); hint.className = "maphint"; hint.textContent = "Trascina per spostarti, allarga con due dita, tocca un punto per la scheda.";
+  wrap.appendChild(b); wrap.appendChild(hint);
+  const set = on => {
+    document.body.classList.toggle("mappafull", on);
+    b.textContent = on ? "Chiudi la mappa ✕" : "Apri la mappa a schermo intero ⤢";
+    b.setAttribute("aria-pressed", String(on));
+    if (!on) { $("ecoInfo").hidden = true; wrap.scrollIntoView({block:"center"}); }
+    clearTimeout(ECO.rs); ECO.rs = setTimeout(() => { scheduleEco(); }, 60);
+  };
+  b.onclick = () => set(!document.body.classList.contains("mappafull"));
+  set(false);
+  window.addEventListener("hashchange", () => { if (document.body.classList.contains("mappafull")) set(false); });
+})();
 
 
 // ---------- la mia biblioteca (ogni iscritto, dati privati) ----------

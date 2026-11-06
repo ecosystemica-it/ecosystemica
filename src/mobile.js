@@ -18,3 +18,21 @@ rebuild = function(){ const r = _rebuildM.apply(this, arguments); renderMobileTe
 const _openTemaM = openTema;
 openTema = function(k, isPonte){ const r = _openTemaM.apply(this, arguments); if (MOBILE.matches && k) window.scrollTo(0, 0); return r; };
 renderMobileTemi();
+
+// telefono: la mappa si apre a schermo intero, dove si sposta con un dito e si ingrandisce con due
+(() => {
+  const wrap = $("ecoWrap"); if (!wrap || $("mapFull")) return;
+  const b = document.createElement("button"); b.id = "mapFull"; b.className = "mapfull"; b.type = "button";
+  const hint = document.createElement("p"); hint.className = "maphint"; hint.textContent = "Trascina per spostarti, allarga con due dita, tocca un punto per la scheda.";
+  wrap.appendChild(b); wrap.appendChild(hint);
+  const set = on => {
+    document.body.classList.toggle("mappafull", on);
+    b.textContent = on ? "Chiudi la mappa ✕" : "Apri la mappa a schermo intero ⤢";
+    b.setAttribute("aria-pressed", String(on));
+    if (!on) { $("ecoInfo").hidden = true; wrap.scrollIntoView({block:"center"}); }
+    clearTimeout(ECO.rs); ECO.rs = setTimeout(() => { scheduleEco(); }, 60);
+  };
+  b.onclick = () => set(!document.body.classList.contains("mappafull"));
+  set(false);
+  window.addEventListener("hashchange", () => { if (document.body.classList.contains("mappafull")) set(false); });
+})();
