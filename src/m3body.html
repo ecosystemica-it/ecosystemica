@@ -218,6 +218,11 @@ body.home footer{display:none}
     <a class="back" href="#">← La mappa</a>
     <div class="adm" id="redBody">
       <div class="sec-head" style="margin-top:8px"><div><p class="eyebrow">Redazione</p><h2>Che cosa entra nell'archivio</h2></div><p>Qui vedi le schede aggiunte da ogni aggiornamento e quelle arrivate dalle ricerche immediate. Ogni scheda nasce come bozza da rivedere: solo quelle che approvi andranno sul sito pubblico.</p></div>
+      <section class="redsec pubsec"><h3>Archivio pubblico</h3>
+        <p class="bibhelp">Il sito ecosystemica.it mostra solo le schede approvate, come erano all'ultimo aggiornamento. Quando hai approvato schede nuove, premi il pulsante: Claude ricostruisce il sito e lo pubblica, e in circa dieci minuti le schede sono online. Parte solo quando lo premi, quindi non costa nulla se non serve.</p>
+        <div class="pubrow"><button class="btn" id="pubGo" type="button">Aggiorna l'archivio pubblico</button><span class="pubinfo" id="pubInfo"></span></div>
+        <p class="status" id="pubStatus" role="status"></p>
+      </section>
       <section class="redsec"><h3>Ricerca immediata</h3>
         <p class="bibhelp">Chiedi subito schede su un argomento, un autore o un contesto, senza aspettare l'aggiornamento del mattino. Claude cerca le fonti, le verifica sulla pubblicazione originale e scrive le schede come bozze.</p>
         <form class="rqform" id="rqForm"><select id="rqTipo" aria-label="Tipo di ricerca"><option value="argomento">Argomento</option><option value="autore">Autore</option><option value="contesto">Contesto</option></select><input id="rqTesto" maxlength="200" placeholder="Es.: fiducia nei team ibridi · Amy Edmondson · fusione fra due aziende familiari" aria-label="Che cosa cercare"><select id="rqQuante" aria-label="Quante schede"><option value="5">5 schede</option><option value="10">10 schede</option><option value="15">15 schede</option></select><button class="btn" id="rqGo">Avvia la ricerca</button></form>
