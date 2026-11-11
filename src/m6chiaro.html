@@ -1,0 +1,61 @@
+<style>
+/* ---------- tema chiaro: carta calda, verde bosco per le azioni ---------- */
+:root:not(#z):not(#w){
+  --bg:#F3F4EE; --surface:#FFFFFF; --surface2:#EEF1E9; --ink:#18231D; --muted:#5B675F; --line:#DCE2D9; --accent:#2F7A45; --link:#1F6B5A; --nat:#2E8C46;
+  --c-sis:#3B6F94; --c-soc:#B5523B; --c-lav:#8C6D1F; --c-lea:#6E4A8E; --c-cam:#2D8077; --c-evo:#A8436F; --c-nat:#4E8A35;
+  --m-ind:#E0492B; --m-com:#0A84D6; --m-lea:#6E3CE0; --m-cul:#D92A79; --m-cam:#E08600; --m-app:#00A396; --m-ben:#D9A300; --m-tra:#2B44C7;
+  --ring:#F1F1EC; --ring2:#FAFAF6; --lime:#C6F36B;
+  color-scheme:light;
+}
+html body{background:var(--bg);color:var(--ink)}
+html body ::selection{background:#CFEFA0;color:var(--ink)}
+/* azioni: verde bosco con testo bianco */
+html body .btn,html body .btn.ghost,html body .chip.go,html body .archlevtog{background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important}
+html body .btn:hover:not(:disabled),html body .btn.ghost:hover:not(:disabled),html body .chip.go:hover{background:#245F36!important;border-color:#245F36!important}
+html body .btn.danger{background:transparent!important;color:#B23A2A!important;border-color:#E3B4AB!important}
+html body .chip,html body .topicbtn{background:var(--surface);border-color:var(--line);color:var(--ink)}
+html body .chip:hover,html body .topicbtn:hover{border-color:var(--muted)}
+html body .chip[aria-pressed="true"],html body .topicbtn[aria-pressed="true"],html body .tools .chips .chip[aria-pressed="true"],html body .attrow .chip.on{background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important}
+html body .chip[aria-pressed="true"] small,html body .topicbtn[aria-pressed="true"] small,html body .chip.go .dot{color:#fff}
+html body .ctxsel{background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important}
+html body .top nav a{color:var(--muted)}
+html body .top nav a:hover{color:var(--ink);background:var(--surface2)}
+html body .top nav a[aria-current="page"]{background:var(--accent)!important;color:#fff!important}
+html body .top .brand .logo{color:var(--accent)}
+html body .eyebrow{color:var(--accent)}
+html body a:hover{color:var(--accent)}
+html body .search,html body select,html body input,html body textarea{background:var(--surface);border-color:var(--line);color:var(--ink)}
+html body form.edit input,html body form.edit select,html body form.edit textarea,html body .bform textarea,html body .refrow input{background:#FBFBF8;border-color:var(--line)}
+html body form.edit input,html body form.edit select,html body form.edit textarea{box-sizing:border-box;max-width:100%}
+html body .search:focus,html body select:focus,html body input:focus,html body textarea:focus{border-color:var(--accent)}
+/* superfici e schede */
+html body .results .row{background:var(--surface);border-color:var(--line)!important}
+html body .results .row:hover{background:var(--surface2);border-color:#C3CCC0!important}
+html body .results .row .tg{background:var(--surface2);border-color:var(--line);color:var(--link)}
+html body .zero{border-color:#C3CCC0}
+html body .rqst{border-color:var(--line)}
+html body .lezpill{color:#fff}
+html body .rqb:hover{color:#fff;background:var(--accent);border-color:var(--accent)}
+html body .pubinfo .pubko,html body .msg.err{color:#B23A2A}
+html body .chisiamo p{color:#3E4A43}
+html body .tclose{border-color:var(--line)}
+html body .tclose:hover{color:#fff;background:var(--accent);border-color:var(--accent)}
+html body .ttog{border-color:var(--line)!important}
+/* la home: la mappa resta com'è, i riquadri sopra diventano chiari */
+html body #ecoWrap{border-color:var(--line)!important}
+html body .thesis{background:color-mix(in srgb, #FFFFFF 92%, transparent)!important;border-color:var(--line)!important;color:var(--ink)}
+html body .thesis p{color:#4A564E}
+html body .tools .chips,html body .tools .sbox{background:color-mix(in srgb, #FFFFFF 90%, transparent)}
+html body .legend.ov,html body .stats.ov,html body .ov.stats{background:color-mix(in srgb, #FFFFFF 92%, transparent);color:var(--ink)}
+html body .ecoinfo{background:color-mix(in srgb, #FFFFFF 97%, transparent)!important;color:var(--ink);border-color:var(--line)!important}
+html body .mapfull{color:#fff;background:var(--accent);border-color:var(--accent)}
+html body .pubsec{border-color:var(--accent)!important}
+
+/* parti del solo sito pubblico */
+html body .pg .tagchips span{border-color:var(--line);background:var(--surface2);color:var(--link)}
+html body .legale p,html body .legale li{color:#3E4A43}
+html body .authform input[type=email],html body .authform input[type=password],html body .authform input:not([type]){background:#FBFBF8;border-color:var(--line);color:var(--ink)}
+html body dialog.authdlg::backdrop{background:rgba(20,30,25,.35)}
+@media (min-width:761px){html body .legend.crediti{background:color-mix(in srgb, #FFFFFF 94%, transparent)!important}}
+html body .anteprima{color:#fff}
+</style>

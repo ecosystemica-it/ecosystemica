@@ -91,7 +91,7 @@ dialog.authdlg::backdrop{background:rgba(5,10,8,.72);backdrop-filter:blur(3px)}
 .aulinks{font-size:13px;color:var(--muted);margin:0}
 .anteprima{background:var(--accent);color:#0C1411;text-align:center;font:600 12.5px var(--f-ui);padding:6px 12px}
 """
-css = RESET + "\n" + "\n".join(ff) + "\n" + "\n".join(stili(f) for f in ["head.html", "style2.html", "m3style.html", "m4style.html", "m5style.html"]) + EXTRA
+css = RESET + "\n" + "\n".join(ff) + "\n" + "\n".join(stili(f) for f in ["head.html", "style2.html", "m3style.html", "m4style.html", "m5style.html", "m6chiaro.html"]) + EXTRA
 open(f"{OUT}/assets/site.css", "w").write(css)
 
 shutil.copy(C + "/vendor/d3.min.js", f"{OUT}/assets/d3.min.js")
