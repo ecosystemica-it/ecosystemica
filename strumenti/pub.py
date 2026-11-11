@@ -124,8 +124,15 @@ def testa(titolo, descr, path, extra=""):
 <meta property="og:title" content="{E(titolo)}"><meta property="og:description" content="{E(descr)}"><meta property="og:url" content="{BASE}{path}"><meta property="og:type" content="website"><meta property="og:locale" content="it_IT">
 <link rel="icon" href="/assets/logo.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/site.css?v={V["site.css"]}">{extra}</head>'''
 
+# la data dell'ultimo aggiornamento, nella riga dei numeri in fondo alla mappa
+from zoneinfo import ZoneInfo
+_ora = datetime.datetime.now(ZoneInfo("Europe/Rome"))
+_MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"]
+AGGIORNATO = f'<time datetime="{_ora.isoformat(timespec="minutes")}">{_ora.day} {_MESI[_ora.month - 1]} {_ora.year}, ore {_ora.hour}:{_ora.minute:02d}</time>'
+
 # la pagina principale riusa l'interfaccia della redazione, senza le parti riservate
 body = open(f"{C}/m3body.html").read()
+body = body.replace("· cresce ogni mattina", "· ultimo aggiornamento: " + AGGIORNATO)
 for pid in ["pBrief", "pApprof", "pInterventi", "pAzienda", "pRedazione", "pModello"]:
     body = re.sub(rf'<main id="{pid}"[^>]*>.*?</main>', f'<main id="{pid}" class="page" hidden></main>', body, flags=re.S)
 body = re.sub(r'<a href="#[a-z]+" data-nav="(brief|interventi|redazione)" class="adm">[^<]*</a>', "", body)

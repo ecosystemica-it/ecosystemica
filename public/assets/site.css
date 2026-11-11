@@ -1095,6 +1095,10 @@ html body dialog.authdlg::backdrop{background:rgba(20,30,25,.35)}
 @media (min-width:761px){html body .legend.crediti{background:color-mix(in srgb, #FFFFFF 94%, transparent)!important}}
 html body .anteprima{color:#fff}
 
+
+/* la riga dei numeri, con la data dell'ultimo aggiornamento, resta visibile anche sul telefono, sotto la mappa */
+@media (max-width:760px){html body #pHome .ov.stats{display:block!important;position:static!important;order:5;text-align:left;font-size:12px;padding:0 4px}}
+
 .pubfoot{display:flex;flex-direction:column;gap:10px}body.pag-chisiamo footer{display:none!important}.cscred{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}.cscred h2{font-size:15px;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin:0}.chisiamo .cscred p{font-size:13.5px;line-height:1.6;color:var(--muted)}.cscred a{color:var(--link)}.legend.crediti{display:flex!important;flex-direction:column;gap:5px;max-width:min(610px,calc(100% - 580px))!important;font-family:var(--f-mono);font-size:9px;padding:6px 10px!important;line-height:1.35;gap:3px!important}.legend.crediti .pfrow{display:flex;flex-wrap:wrap;gap:1px 12px;font-size:9.7px!important}.legend.crediti .pfrow *{font-size:inherit!important}.legend.crediti a{color:var(--muted)}.legend.crediti a:hover{color:var(--ink)}.legend.crediti .pfcopy{margin:0;font-size:7.6px;line-height:1.4;color:var(--muted);max-width:none}@media (max-width:1100px){.legend.crediti{max-width:calc(100% - 560px)!important}.legend.crediti .pfcopy{display:none}}@media (min-width:761px){#pHome .thesis{max-height:calc(100% - 40px);overflow:auto}.legend.crediti{background:color-mix(in srgb, #0C1411 96%, transparent)!important}}@media (min-width:761px) and (max-width:1100px){#pHome .thesis{max-height:calc(100% - 40px)}}.pubfoot .pfrow{display:flex;flex-wrap:wrap;gap:6px 18px}.pubfoot .pfcopy{margin:0;max-width:none;font-size:10px;line-height:1.5;color:var(--muted)}
 .pubfoot a{color:var(--muted)}
 .pg{max-width:1180px;margin:0 auto}
