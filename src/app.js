@@ -154,6 +154,8 @@ function route(){
   if (h.startsWith("analogia-") || h.startsWith("ponte-")) { show("pAnalogia"); renderAnalogia(h.slice(h.indexOf("-") + 1)); window.scrollTo(0, 0); return; }
   if (h.startsWith("tema-")) { show("pHome"); if (ECO.pending) { ECO.pending = false; scheduleEco(); } openTema(h.slice(h.indexOf("-") + 1), h.startsWith("ponte-")); window.scrollTo(0, 0); return; }
   show("pHome");
+  // in home l'indirizzo resta pulito: niente "#" in coda
+  if (!h && /#$/.test(location.href)) { try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {} }
   if (ECO.pending) { ECO.pending = false; scheduleEco(); }
   window.scrollTo(0, 0);
 }
